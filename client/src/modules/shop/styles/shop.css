@@ -1,0 +1,133 @@
+/*
+ * Theme storefront "Ember" — chỉ áp trong [data-site="shop"], không ảnh hưởng trang quản trị.
+ * Nạp tại ShopShell (dùng cho layout (shop) và 404 gốc).
+ * Spec: docs/superpowers/specs/2026-10-18-ericssports-storefront-cms-design.md mục 3.
+ * Màu chữ / nút đã đo WCAG AA (kế hoạch GĐ1, Q2): #D4321A cho chữ & nút, #EA3A1E chỉ cho mảng lớn / chữ display cỡ lớn.
+ * Storefront luôn sáng: không khai báo giá trị dark.
+ */
+@layer components {
+  /*
+   * Biến theme. `.shop-theme` dùng cho nội dung portal của Radix (Sheet, Popover, Select...) vì portal render
+   * ngoài wrapper [data-site="shop"].
+   */
+  [data-site="shop"],
+  .shop-theme {
+    color-scheme: light;
+
+    /* Token riêng storefront */
+    --shop-primary: #D4321A;
+    --shop-primary-hover: #B82A14;
+    --shop-primary-bright: #EA3A1E;
+    --shop-ink: #1C1917;
+    --shop-ink-soft: #2A2522;
+    --shop-bg: #FAF7F2;
+    --shop-muted: #F3EEE6;
+    --shop-accent-soft: #F3B8A8;
+    --shop-on-ink-secondary: #BDB5AA;
+    --shop-container: 1280px;
+
+    /* Ghi đè token template (--c-*) */
+    --c-primary: var(--shop-primary);
+    --c-primary-hover: var(--shop-primary-hover);
+    --c-primary-bg: #FDEDE9;
+    --c-primary-border: #F6C3B6;
+    --c-success: #047857;
+    --c-success-bg: #ECFDF5;
+    --c-error: #B91C1C;
+    --c-error-bg: #FEF2F2;
+    --c-layout: var(--shop-bg);
+    --c-surface: #FFFFFF;
+    --c-bg-subtle: var(--shop-bg);
+    --c-bg-muted: var(--shop-muted);
+    --c-border: #E5DCCF;
+    --c-border-strong: #D6CCBE;
+    --c-text: var(--shop-ink);
+    --c-text-2: #3B342F;
+    --c-text-secondary: #6B635A;
+    --c-text-tertiary: #78706A;
+
+    /*
+     * Token shadcn được tính tại :root (var() phân giải ở phần tử khai báo) -> phải khai báo lại trong vùng shop
+     * thì Button / Input / Checkbox... mới nhận màu Ember.
+     */
+    --radius: 0.375rem;
+    --background: var(--c-surface);
+    --foreground: var(--c-text);
+    --card: var(--c-surface);
+    --card-foreground: var(--c-text);
+    --popover: var(--c-surface);
+    --popover-foreground: var(--c-text);
+    --primary: var(--c-primary);
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--c-bg-muted);
+    --secondary-foreground: var(--c-text);
+    --muted: var(--c-bg-muted);
+    --muted-foreground: var(--c-text-secondary);
+    --accent: var(--c-bg-muted);
+    --accent-foreground: var(--c-text);
+    --destructive: var(--c-error);
+    --border: var(--c-border);
+    --input: var(--c-border-strong);
+    --ring: var(--c-primary);
+
+    color: var(--c-text);
+    font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  [data-site="shop"] {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--shop-bg);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Kiểu chữ ─────────────────────────────────────────── */
+  /* Tiêu đề display: Archivo siêu hẹp + siêu đậm, in hoa */
+  .shop-display {
+    font-stretch: 62%;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+  /* Tiêu đề phụ / nút: hẹp vừa */
+  .shop-display-soft {
+    font-stretch: 75%;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  /* Giá: số thẳng cột */
+  .shop-price {
+    font-stretch: 85%;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+  .shop-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Link "Bỏ qua đến nội dung" — chỉ hiện khi focus bàn phím */
+  .shop-skip-link {
+    position: absolute;
+    left: 16px;
+    top: -48px;
+    z-index: 60;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: var(--shop-ink);
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  .shop-skip-link:focus {
+    top: 8px;
+  }
+}

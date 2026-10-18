@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "siteName": "Ericssports",
+    "defaultTitle": "Ericssports — Genuine gym equipment",
+    "description": "Treadmills, exercise bikes, weights, benches and gym accessories. Home delivery and installation, long warranty."
+  },
+  "skipToContent": "Skip to content",
+  "header": {
+    "home": "Ericssports home",
+    "mainNav": "Main categories",
+    "searchLabel": "Search products",
+    "searchPlaceholder": "Search treadmills, weights, benches…",
+    "openSearch": "Open search",
+    "account": "Account",
+    "cart": "Cart",
+    "openMenu": "Open menu",
+    "menuTitle": "Product categories"
+  },
+  "nav": {
+    "cardio": "Cardio",
+    "treadmills": "Treadmills",
+    "bikes": "Exercise bikes",
+    "ellipticals": "Ellipticals",
+    "strength": "Strength",
+    "dumbbells": "Dumbbells",
+    "barbells": "Barbells & plates",
+    "benches": "Benches",
+    "racks": "Racks & rigs",
+    "recovery": "Yoga & recovery",
+    "mats": "Exercise mats",
+    "massage": "Massage guns & rollers",
+    "accessories": "Accessories",
+    "sale": "Sale"
+  },
+  "footer": {
+    "tagline": "Genuine gym equipment, delivered and installed at your home.",
+    "contact": "Contact",
+    "hotline": "Hotline",
+    "email": "Email",
+    "hours": "Opening hours",
+    "policies": "Policies",
+    "policyWarranty": "Warranty",
+    "policyReturn": "Returns",
+    "policyShipping": "Delivery & installation",
+    "policyPrivacy": "Privacy",
+    "support": "Customer support",
+    "supportGuide": "How to order",
+    "supportPayment": "Payment methods",
+    "supportTrack": "Track your order",
+    "supportFaq": "FAQ",
+    "payments": "Payment",
+    "paymentCod": "Cash on delivery",
+    "paymentBank": "Bank transfer",
+    "copyright": "© {year} Ericssports. All rights reserved."
+  },
+  "product": {
+    "new": "New",
+    "discount": "-{percent}%",
+    "compareAt": "Was {price}",
+    "rating": "{rating} out of 5 stars",
+    "reviews": "{count} reviews",
+    "sold": "{count} sold"
+  },
+  "home": {
+    "heroEyebrow": "Train at home",
+    "heroTitle": "A gym in your home",
+    "heroText": "Genuine treadmills, bikes, weights and benches. Free delivery and installation in the city.",
+    "featured": "Featured products"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for may have moved or no longer exists.",
+    "backHome": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "text": "This page cannot be displayed right now. Please try again in a few minutes.",
+    "retry": "Try again",
+    "backHome": "Back to home"
+  },
+  "uiKit": {
+    "title": "Storefront UI kit",
+    "intro": "Internal page for reviewing components (not available in production).",
+    "colors": "Colors",
+    "typography": "Typography",
+    "vietnameseTest": "Vietnamese diacritics test",
+    "buttons": "Buttons",
+    "badges": "Badges & chips",
+    "prices": "Prices & ratings",
+    "inputs": "Inputs",
+    "productCards": "Product cards",
+    "sampleTitle": "Strength starts here",
+    "sampleBody": "Genuine gym equipment, delivered and installed at your home. 24-month warranty, 7-day returns.",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "viewAll": "View all",
+    "chipUnder5m": "Under 5 million",
+    "chipFoldable": "Foldable",
+    "chipInStock": "In stock",
+    "inputPlaceholder": "Enter discount code",
+    "selectPlaceholder": "Choose province / city",
+    "checkboxLabel": "Home installation",
+    "eyebrowSample": "Eyebrow · 12px / 600",
+    "badgeNew": "New",
+    "badgeBestseller": "Best seller",
+    "badgeFreeInstall": "Free installation"
+  }
+}

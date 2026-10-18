@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "siteName": "Ericssports",
+    "defaultTitle": "Ericssports — Thiết bị tập gym chính hãng",
+    "description": "Máy chạy bộ, xe đạp tập, tạ, ghế tập và phụ kiện gym chính hãng. Giao và lắp đặt tận nhà, bảo hành dài hạn."
+  },
+  "skipToContent": "Bỏ qua đến nội dung",
+  "header": {
+    "home": "Trang chủ Ericssports",
+    "mainNav": "Danh mục chính",
+    "searchLabel": "Tìm sản phẩm",
+    "searchPlaceholder": "Tìm máy chạy, tạ, ghế tập…",
+    "openSearch": "Mở ô tìm kiếm",
+    "account": "Tài khoản",
+    "cart": "Giỏ hàng",
+    "openMenu": "Mở menu",
+    "menuTitle": "Danh mục sản phẩm"
+  },
+  "nav": {
+    "cardio": "Cardio",
+    "treadmills": "Máy chạy bộ",
+    "bikes": "Xe đạp tập",
+    "ellipticals": "Máy tập elip",
+    "strength": "Tập tạ",
+    "dumbbells": "Tạ đơn",
+    "barbells": "Tạ đòn & bánh tạ",
+    "benches": "Ghế tập",
+    "racks": "Khung & giàn tạ",
+    "recovery": "Yoga & phục hồi",
+    "mats": "Thảm tập",
+    "massage": "Súng & con lăn massage",
+    "accessories": "Phụ kiện",
+    "sale": "Khuyến mãi"
+  },
+  "footer": {
+    "tagline": "Thiết bị tập gym chính hãng, giao và lắp đặt tận nhà.",
+    "contact": "Liên hệ",
+    "hotline": "Hotline",
+    "email": "Email",
+    "hours": "Giờ làm việc",
+    "policies": "Chính sách",
+    "policyWarranty": "Bảo hành",
+    "policyReturn": "Đổi trả",
+    "policyShipping": "Giao hàng & lắp đặt",
+    "policyPrivacy": "Bảo mật thông tin",
+    "support": "Hỗ trợ khách hàng",
+    "supportGuide": "Hướng dẫn mua hàng",
+    "supportPayment": "Phương thức thanh toán",
+    "supportTrack": "Tra cứu đơn hàng",
+    "supportFaq": "Câu hỏi thường gặp",
+    "payments": "Thanh toán",
+    "paymentCod": "COD",
+    "paymentBank": "Chuyển khoản",
+    "copyright": "© {year} Ericssports. Đã đăng ký bản quyền."
+  },
+  "product": {
+    "new": "Mới",
+    "discount": "-{percent}%",
+    "compareAt": "Giá gốc {price}",
+    "rating": "{rating} trên 5 sao",
+    "reviews": "{count} đánh giá",
+    "sold": "Đã bán {count}"
+  },
+  "home": {
+    "heroEyebrow": "Tập tại nhà",
+    "heroTitle": "Phòng gym trong nhà bạn",
+    "heroText": "Máy chạy, xe đạp, tạ và ghế tập chính hãng. Giao và lắp đặt miễn phí nội thành.",
+    "featured": "Sản phẩm nổi bật"
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "text": "Trang bạn tìm có thể đã đổi địa chỉ hoặc không còn tồn tại.",
+    "backHome": "Về trang chủ"
+  },
+  "error": {
+    "title": "Đã xảy ra lỗi",
+    "text": "Trang tạm thời không hiển thị được. Bạn thử lại sau ít phút nhé.",
+    "retry": "Thử lại",
+    "backHome": "Về trang chủ"
+  },
+  "uiKit": {
+    "title": "UI kit storefront",
+    "intro": "Trang nội bộ để duyệt component (không có trong bản production).",
+    "colors": "Màu",
+    "typography": "Kiểu chữ",
+    "vietnameseTest": "Kiểm tra dấu tiếng Việt",
+    "buttons": "Nút",
+    "badges": "Nhãn & chip",
+    "prices": "Giá & đánh giá",
+    "inputs": "Ô nhập",
+    "productCards": "Thẻ sản phẩm",
+    "sampleTitle": "Sức mạnh bắt đầu từ đây",
+    "sampleBody": "Thiết bị gym chính hãng, giao và lắp đặt tận nhà. Bảo hành 24 tháng, đổi trả trong 7 ngày.",
+    "addToCart": "Thêm vào giỏ",
+    "buyNow": "Mua ngay",
+    "viewAll": "Xem tất cả",
+    "chipUnder5m": "Dưới 5 triệu",
+    "chipFoldable": "Gấp gọn",
+    "chipInStock": "Còn hàng",
+    "inputPlaceholder": "Nhập mã giảm giá",
+    "selectPlaceholder": "Chọn tỉnh / thành",
+    "checkboxLabel": "Lắp đặt tận nơi",
+    "eyebrowSample": "Dòng nhỏ · 12px / 600",
+    "badgeNew": "Mới",
+    "badgeBestseller": "Bán chạy",
+    "badgeFreeInstall": "Miễn phí lắp đặt"
+  }
+}

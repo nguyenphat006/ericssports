@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
 import AppProviders from "@/providers/AppProviders";
-import { APP_CONFIG } from "@/config/app";
 import { THEME_INIT_SCRIPT } from "@/stores/useThemeStore";
 
-export const metadata: Metadata = {
-  // Trang con chỉ cần khai báo `title: "Tên trang"` -> tự thành "Tên trang | <APP_CONFIG.name>"
-  title: {
-    default: APP_CONFIG.name,
-    template: `%s | ${APP_CONFIG.name}`,
-  },
-  description: APP_CONFIG.description,
-};
+// Mặc định theo storefront (404 gốc, trang ngoài hai khu vực). Khu quản trị đặt lại ở app/admin/layout.tsx.
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("shop.meta");
+  return {
+    title: { default: t("defaultTitle"), template: `%s | ${t("siteName")}` },
+    description: t("description"),
+  };
+}
 
 export default async function RootLayout({
   children,

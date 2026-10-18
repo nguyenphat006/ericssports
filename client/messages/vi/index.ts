@@ -22,6 +22,7 @@ import numberFormat from "./numberFormat.json";
 import notifications from "./notifications.json";
 import customers from "./customers.json";
 import suppliers from "./suppliers.json";
+import shop from "./shop.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, units, materialCategories, materials, attachments, dataTransfer, numberFormat, notifications, customers, suppliers };
+const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, units, materialCategories, materials, attachments, dataTransfer, numberFormat, notifications, customers, suppliers, shop };
 export default messages;
