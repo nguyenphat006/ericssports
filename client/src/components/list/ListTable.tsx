@@ -12,6 +12,7 @@ import { Pagination } from "./Pagination";
 import type { ListState } from "./useListState";
 import type { ListPreferencesApi } from "./useListPreferences";
 import type { ListColumn } from "./types";
+import { adminPath } from "@/config/routes";
 
 const SKELETON_ROWS = 8;
 const MIN_WIDTH = 64;
@@ -138,7 +139,7 @@ export function ListTable<T extends object>({ resolved, prefsApi, list, data, to
     const content = isEmptyValue(raw) ? <span className="list-empty-value">—</span> : typeof raw === "object" ? (raw as React.ReactNode) : String(raw);
     const href = col.link?.(record);
     return href ? (
-      <Link href={href} className="list-link" onClick={(e) => e.stopPropagation()}>
+      <Link href={adminPath(href)} className="list-link" onClick={(e) => e.stopPropagation()}>
         {content}
       </Link>
     ) : (

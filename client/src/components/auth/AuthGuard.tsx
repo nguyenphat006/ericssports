@@ -7,6 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { authService } from "@/modules/auth/services/auth.service";
 import { Spinner } from "@/components/feedback/Spinner";
+import { ADMIN_LOGIN } from "@/config/routes";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   useEffect(() => {
     const checkAuth = async () => {
       // Bỏ qua check ở các route public
-      if (pathname.startsWith("/login")) {
+      if (pathname.startsWith(ADMIN_LOGIN)) {
         setIsChecking(false);
         return;
       }
@@ -35,7 +36,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
       if (!token || !refresh) {
         logout();
-        router.push("/login");
+        router.push(ADMIN_LOGIN);
         return;
       }
 
@@ -53,7 +54,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
         if (!user) {
           console.error("Auth hydration failed:", error);
           logout();
-          router.push("/login");
+          router.push(ADMIN_LOGIN);
         }
       }
     };
@@ -63,12 +64,12 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  if (!mounted || (isChecking && !user && !pathname.startsWith("/login"))) {
+  if (!mounted || (isChecking && !user && !pathname.startsWith(ADMIN_LOGIN))) {
     return <Spinner fullScreen label={t("authenticating")} />;
   }
 
   // Nếu không vào trang login và không có user thì render null để đợi redirect
-  if (!user && !pathname.startsWith("/login")) {
+  if (!user && !pathname.startsWith(ADMIN_LOGIN)) {
     return null;
   }
 

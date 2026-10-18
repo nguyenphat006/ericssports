@@ -8,6 +8,7 @@ import { StatusPage } from "@/components/common";
 import { useNavigation } from "@/hooks/useNavigation";
 import { usePermission } from "@/hooks/usePermission";
 import type { NavigationItem } from "@/services/navigation.service";
+import { stripAdminBase } from "@/config/routes";
 
 /** Trang mọi người dùng đã đăng nhập đều vào được */
 const ALWAYS_ALLOWED = ["/", "/profile", "/403"];
@@ -33,7 +34,8 @@ function belongsTo(pathname: string, route: string): boolean {
  */
 export function RouteGuard({ children }: { children: React.ReactNode }) {
   const t = useTranslations("errors");
-  const pathname = usePathname();
+  // Cây menu lưu đường dẫn tương đối với khu quản trị
+  const pathname = stripAdminBase(usePathname());
   const { isSuperUser } = usePermission();
   const { data: nav, isLoading } = useNavigation();
   const routes = useMemo(() => collectRoutes(nav), [nav]);

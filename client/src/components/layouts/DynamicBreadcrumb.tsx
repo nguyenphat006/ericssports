@@ -17,6 +17,7 @@ import { useBreadcrumbStore } from "@/stores/useBreadcrumbStore";
 import { useNavigation } from "@/hooks/useNavigation";
 import { cn } from "@/lib/utils";
 import type { NavigationItem } from "@/services/navigation.service";
+import { ADMIN_BASE, adminPath, stripAdminBase } from "@/config/routes";
 
 /** Trang có thật nhưng không nằm trong menu sidebar */
 const EXTRA_ROUTES: Record<string, "profile"> = {
@@ -63,7 +64,7 @@ function buildRouteMap(nav: NavigationItem[] | undefined, extraLabel: (key: "pro
 export function DynamicBreadcrumb() {
   const t = useTranslations("layout");
   const tc = useTranslations("common");
-  const pathname = usePathname();
+  const pathname = stripAdminBase(usePathname());
   const labels = useBreadcrumbStore((s) => s.labels);
   const { data: nav } = useNavigation();
   const routeMap = useMemo(() => buildRouteMap(nav, (key) => t(key)), [nav, t]);
@@ -78,7 +79,7 @@ export function DynamicBreadcrumb() {
           <span>{t("home")}</span>
         </span>
       ),
-      href: "/",
+      href: ADMIN_BASE,
     },
   ];
 
@@ -99,7 +100,7 @@ export function DynamicBreadcrumb() {
       (/^\d+$/.test(segment) ? `#${segment}` : ACTION_LABELS[segment] ? tc(`actions.${ACTION_LABELS[segment]}`) : segment.replace(/-/g, " "));
 
     if (isLast) items.push({ title, href: null, current: true });
-    else if (route?.linkable || /^\d+$/.test(segment)) items.push({ title, href: path });
+    else if (route?.linkable || /^\d+$/.test(segment)) items.push({ title, href: adminPath(path) });
     else if (route) items.push({ title, href: null }); // nhóm menu (không có trang thật) -> chỉ chữ
     // Segment trung gian không phải trang cũng không phải nhóm menu -> bỏ qua
   });

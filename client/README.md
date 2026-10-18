@@ -26,8 +26,9 @@ Giao diện quản trị của template: Next.js App Router + Tailwind CSS v4 + 
 client/
 ├── src/
 │   ├── app/                     # Route mỏng: chỉ metadata + render View
-│   │   ├── (auth)/login/        #   Trang đăng nhập
-│   │   ├── (dashboard)/         #   Khu vực đã đăng nhập: layout, loading, error, not-found, các trang
+│   │   ├── (shop)/              #   Storefront ở "/": layout + theme Ember, header/footer
+│   │   ├── admin/login/         #   Đăng nhập nhân viên (/admin/login)
+│   │   ├── admin/(panel)/       #   Trang quản trị /admin/*: layout, loading, error, not-found, các trang
 │   │   ├── layout.tsx           #   Root layout: provider, tiêu đề "%s | <tên app>", script chống nháy theme
 │   │   ├── not-found.tsx · error.tsx · global-error.tsx
 │   │   └── globals.css          #   Biến màu --c-* (sáng / tối) + token shadcn trỏ về chúng

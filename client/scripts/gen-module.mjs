@@ -80,7 +80,8 @@ const vars = {
 const render = (text) => Object.entries(vars).reduce((acc, [k, v]) => acc.split(k).join(v), text);
 
 const moduleDir = path.join(ROOT, "src", "modules", ...args.route.split("/"));
-const pageFile = path.join(ROOT, "src", "app", "(dashboard)", ...args.route.split("/"), "page.tsx");
+// Trang quản trị nằm dưới /admin (src/app/admin/(panel)); route backend vẫn lưu tương đối ("/master-data/suppliers")
+const pageFile = path.join(ROOT, "src", "app", "admin", "(panel)", ...args.route.split("/"), "page.tsx");
 if (fs.existsSync(moduleDir)) fail(`Thư mục module đã tồn tại: ${path.relative(ROOT, moduleDir)}`);
 if (fs.existsSync(pageFile)) fail(`Route đã tồn tại: ${path.relative(ROOT, pageFile)}`);
 

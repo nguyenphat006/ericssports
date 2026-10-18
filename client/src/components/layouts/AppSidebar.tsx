@@ -13,6 +13,7 @@ import type { NavigationItem } from "@/services/navigation.service";
 import type { AppBranding } from "@/hooks/useSystemSettings";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./BrandMark";
+import { adminPath, stripAdminBase } from "@/config/routes";
 
 interface AppSidebarProps {
   nav: NavigationItem[] | undefined;
@@ -32,7 +33,8 @@ const isActive = (pathname: string, key: string) => (key === "/" ? pathname === 
 /** Sidebar tối cố định: logo + menu động từ ModuleRegistries (đã lọc quyền), cuộn độc lập */
 export function AppSidebar({ nav, loading, branding, compact, onNavigate, onOpenSearch, searchShortcut }: AppSidebarProps) {
   const t = useTranslations("layout");
-  const pathname = usePathname();
+  // Menu backend lưu đường dẫn tương đối ("/users") -> so khớp trên đường dẫn đã bỏ tiền tố /admin
+  const pathname = stripAdminBase(usePathname());
   const [closed, setClosed] = useState<Set<string>>(new Set());
 
   const linkClass = (active: boolean) =>
@@ -45,7 +47,7 @@ export function AppSidebar({ nav, loading, branding, compact, onNavigate, onOpen
   const renderLeaf = (item: NavigationItem, nested = false) => {
     const active = isActive(pathname, item.key);
     const link = (
-      <Link key={item.key} href={item.key} onClick={onNavigate} className={cn(linkClass(active), nested && !compact && "pl-9")} aria-current={active ? "page" : undefined}>
+      <Link key={item.key} href={adminPath(item.key)} onClick={onNavigate} className={cn(linkClass(active), nested && !compact && "pl-9")} aria-current={active ? "page" : undefined}>
         {!nested || compact ? getIconByName(item.icon) : null}
         {!compact && <span className="truncate">{item.label}</span>}
       </Link>
@@ -76,7 +78,7 @@ export function AppSidebar({ nav, loading, branding, compact, onNavigate, onOpen
             <DropdownMenuLabel>{item.label}</DropdownMenuLabel>
             {children.map((c) => (
               <DropdownMenuItem key={c.key} asChild>
-                <Link href={c.key}>{c.label}</Link>
+                <Link href={adminPath(c.key)}>{c.label}</Link>
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

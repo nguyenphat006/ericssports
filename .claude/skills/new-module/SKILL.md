@@ -49,7 +49,7 @@ Với thực thể dạng danh mục (mã + tên + mô tả + trạng thái), ch
 6. `<Feature>View.tsx`: `ListPage` + `useListState` + `defineColumns` (mẫu `units/UnitsView.tsx`, rule `frontend-tables.md`). Không tự viết toolbar / table. Batch: `toast.success(res.message)`, có `res.data.skipped` → `toast.warning`. Không MetricCards / thùng rác.
 7. Trang chi tiết (nếu có): `<Entity>DetailView.tsx` dùng `DetailPage` (rule `frontend-detail-views.md`); cột tên ở danh sách thêm `link`.
 8. `index.ts` barrel + `export { default }`.
-9. Route mỏng: `src/app/(dashboard)/<route>/page.tsx` (+ `[id]/page.tsx`) chỉ khai báo `metadata` và render View. Route phải khớp `route_path` trong `seed_core` (không tạo route alias trùng).
+9. Route mỏng: `src/app/admin/(panel)/<route>/page.tsx` (URL thật `/admin/<route>`) (+ `[id]/page.tsx`) chỉ khai báo `metadata` và render View. Route phải khớp `route_path` trong `seed_core` (không tạo route alias trùng).
 10. Chạy `npx tsc --noEmit` → `npm run lint -- --max-warnings=0` → `npm run build`.
 
 ## 3. Kết thúc

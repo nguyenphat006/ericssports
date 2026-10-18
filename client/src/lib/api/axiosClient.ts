@@ -1,6 +1,7 @@
 import { readClientLocale } from "@/i18n/config";
 import axios, { type AxiosRequestConfig, type InternalAxiosRequestConfig } from "axios";
 import { isApiEnvelope, type ApiEnvelope } from "./types";
+import { ADMIN_LOGIN, isAdminPath } from "@/config/routes";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
 
@@ -29,6 +30,17 @@ axiosClient.interceptors.request.use(
 );
 
 // Response Interceptor: Xử lý lỗi toàn cục, Silent Token Refresh khi gặp 401
+/**
+ * Phiên nhân viên hết hạn -> về trang đăng nhập quản trị. Chỉ áp dụng trong khu `/admin`:
+ * khách trên storefront gặp 401 không bị đá sang trang đăng nhập của nhân viên.
+ */
+function redirectToAdminLogin() {
+  const { pathname } = window.location;
+  if (!isAdminPath(pathname) || pathname.startsWith(ADMIN_LOGIN)) return;
+  // Interceptor nằm ngoài cây React (không có router) -> điều hướng cứng, đồng thời xóa sạch state
+  window.location.href = ADMIN_LOGIN;
+}
+
 let isRefreshing = false;
 let failedQueue: Array<{
   resolve: (value?: unknown) => void;
@@ -71,11 +83,7 @@ axiosClient.interceptors.response.use(
       if (!refreshToken) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        if (!window.location.pathname.startsWith("/login")) {
-          // Interceptor nằm ngoài cây React (không có router) -> điều hướng cứng, đồng thời xóa sạch state
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-          window.location.href = "/login";
-        }
+        redirectToAdminLogin();
         return Promise.reject(error);
       }
 
@@ -113,10 +121,7 @@ axiosClient.interceptors.response.use(
         processQueue(refreshError, null);
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        if (!window.location.pathname.startsWith("/login")) {
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-          window.location.href = "/login";
-        }
+        redirectToAdminLogin();
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

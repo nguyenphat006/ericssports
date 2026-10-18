@@ -36,6 +36,7 @@ import { DynamicBreadcrumb } from "./DynamicBreadcrumb";
 import { cn } from "@/lib/utils";
 import { LOCALES } from "@/i18n/config";
 import { useChangeLocale } from "@/i18n/useChangeLocale";
+import { ADMIN_LOGIN, adminPath, stripAdminBase } from "@/config/routes";
 
 const THEME_OPTIONS: { mode: ThemeMode; label: "themeLight" | "themeDark" | "themeSystem"; icon: React.ReactNode }[] = [
   { mode: "light", label: "themeLight", icon: <Sun /> },
@@ -57,7 +58,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [numberFormatModalOpen, setNumberFormatModalOpen] = useState(false);
-  const pathname = usePathname();
+  const pathname = stripAdminBase(usePathname());
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const { data: navData, isLoading: isNavLoading } = useNavigation();
@@ -95,12 +96,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       // Bỏ qua lỗi mạng khi đăng xuất
     } finally {
       await logout();
-      router.push("/login");
+      router.push(ADMIN_LOGIN);
     }
   };
 
   const paletteActions: PaletteAction[] = [
-    { key: "profile", label: t("profile"), icon: <User />, onRun: () => router.push("/profile") },
+    { key: "profile", label: t("profile"), icon: <User />, onRun: () => router.push(adminPath("/profile")) },
     {
       key: "theme",
       label: resolvedTheme === "dark" ? t("switchToLight") : t("switchToDark"),
@@ -197,7 +198,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <span className="text-xs font-normal text-muted-foreground">{roleText}</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => router.push("/profile")}>
+                <DropdownMenuItem onSelect={() => router.push(adminPath("/profile"))}>
                   <User />
                   {t("profile")}
                 </DropdownMenuItem>
@@ -260,7 +261,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       <ChangePasswordModal open={passwordModalOpen} onCancel={() => setPasswordModalOpen(false)} />
       <NumberFormatModal open={numberFormatModalOpen} onCancel={() => setNumberFormatModalOpen(false)} />
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} routes={paletteRoutes} actions={paletteActions} onNavigate={(url) => router.push(url)} userId={user?.id} />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} routes={paletteRoutes} actions={paletteActions} onNavigate={(url) => router.push(adminPath(url))} userId={user?.id} />
       {/* Widget theo dõi tác vụ xuất dữ liệu ngầm toàn cục */}
       <FloatingTaskWidget />
     </div>

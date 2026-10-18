@@ -23,6 +23,7 @@ import { extractErrorMessage } from "@/lib/api/errorUtils";
 import type { Paginated } from "@/lib/api/types";
 import { EntityAuditTab } from "./EntityAuditTab";
 import { listReturnKey } from "@/components/list/ListPage";
+import { adminPath } from "@/config/routes";
 
 const MAX_FIELDS = 8;
 
@@ -125,9 +126,10 @@ export function DetailPage<T>({ query, backHref, entityLabel, hero, onEdit, edit
 
   // Quay lại: về đúng URL danh sách gần nhất (giữ bộ lọc, trang, sắp xếp) do ListPage ghi nhớ
   const goBack = () => {
-    let target = backHref;
+    const listHref = adminPath(backHref);
+    let target = listHref;
     try {
-      target = sessionStorage.getItem(listReturnKey(backHref)) ?? backHref;
+      target = sessionStorage.getItem(listReturnKey(listHref)) ?? listHref;
     } catch {
       // sessionStorage bị chặn → dùng URL gốc
     }
@@ -158,7 +160,7 @@ export function DetailPage<T>({ query, backHref, entityLabel, hero, onEdit, edit
         title={t("notFound", { entity: entityLabel })}
         subTitle={t("notFoundHint")}
         extra={
-          <Button onClick={() => router.push(backHref)}>
+          <Button onClick={() => router.push(adminPath(backHref))}>
             <ArrowLeft />
             {t("backToList")}
           </Button>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { HeroConfig } from "./DetailPage";
+import { adminPath } from "@/config/routes";
 
 export interface QuickViewConfig<T> {
   /** Hook chi tiết của module (chỉ gọi API khi id khác 0) */
@@ -90,7 +91,7 @@ export function QuickViewDrawer<T>({ id, onClose, config }: { id: number | null;
         {id !== null && (
           <div className="border-t p-4">
             <Button asChild className="w-full">
-              <Link href={config.href(id)}>
+              <Link href={adminPath(config.href(id))}>
                 {t("quickView.openDetail")}
                 <ArrowRight />
               </Link>

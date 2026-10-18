@@ -15,6 +15,7 @@ import { MaterialDetailSpecsTab } from "./components/MaterialDetailSpecsTab";
 import { MaterialFormModal } from "./components/MaterialFormModal";
 import { useMaterialHero } from "./hero";
 import type { MaterialFormValues, MaterialItem } from "./types";
+import { adminPath } from "@/config/routes";
 
 const NO_CATEGORIES: MaterialCategoryTreeItem[] = [];
 const LIST_HREF = "/master-data/materials";
@@ -67,7 +68,7 @@ export function MaterialDetailView({ materialId }: MaterialDetailViewProps) {
             ? async () => {
                 await deleteMutation.mutateAsync(m.id);
                 toast.success(tc("messages.deleted", { entity: t("entity") }));
-                router.push(LIST_HREF);
+                router.push(adminPath(LIST_HREF));
               }
             : undefined,
         },

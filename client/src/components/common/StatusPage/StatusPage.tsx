@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { ADMIN_BASE } from "@/config/routes";
 
 interface StatusPageProps {
   status: "403" | "404" | "500";
@@ -13,10 +14,12 @@ interface StatusPageProps {
   fullScreen?: boolean;
   /** Thay cụm nút mặc định (vd. "Về danh sách") */
   extra?: React.ReactNode;
+  /** Đích nút "Về trang chủ" — mặc định trang tổng quan quản trị */
+  homeHref?: string;
 }
 
 /** Trang trạng thái dùng chung: 403 / 404 / lỗi hệ thống. */
-export function StatusPage({ status, title, subTitle, onRetry, fullScreen = false, extra }: StatusPageProps) {
+export function StatusPage({ status, title, subTitle, onRetry, fullScreen = false, extra, homeHref = ADMIN_BASE }: StatusPageProps) {
   const t = useTranslations("errors");
   const tc = useTranslations("common");
   return (
@@ -30,7 +33,7 @@ export function StatusPage({ status, title, subTitle, onRetry, fullScreen = fals
             <>
               {onRetry && <Button onClick={onRetry}>{tc("actions.retry")}</Button>}
               <Button asChild variant={onRetry ? "outline" : "default"}>
-                <Link href="/">{t("backHome")}</Link>
+                <Link href={homeHref}>{t("backHome")}</Link>
               </Button>
             </>
           )}

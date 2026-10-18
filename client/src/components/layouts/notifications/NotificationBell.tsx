@@ -12,6 +12,7 @@ import { RelativeTime } from "@/components/list/renderers";
 import { downloadJobFile } from "@/lib/api/download";
 import { cn } from "@/lib/utils";
 import { fetchNewestUnread, useLatestNotifications, useMarkAllRead, useMarkRead, useUnreadCount, type NotificationItem } from "./useNotifications";
+import { adminPath } from "@/config/routes";
 
 const LEVEL_COLOR: Record<string, string> = {
   INFO: "var(--c-info)",
@@ -63,7 +64,7 @@ export function NotificationBell() {
     if (!item.link) return;
     setOpen(false);
     if (isExternal(item.link)) window.open(item.link, "_blank", "noopener");
-    else router.push(item.link);
+    else router.push(adminPath(item.link));
   };
 
   return (

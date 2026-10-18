@@ -47,7 +47,7 @@ cd ../client && npm install && npm run dev     # http://localhost:3000
 Với `master_data`:
 Phân hệ, quyền và quyền mặc định theo vai trò của module mẫu nằm trong `server/apps/master_data/rbac.py` (seed_core tự gom), nên chỉ cần:
 1. Xóa `server/apps/master_data/`, bỏ dòng `'apps.master_data'` trong `config/settings.py` và dòng `apps.master_data.urls` trong `config/urls.py`.
-2. Xóa `client/src/modules/master-data/`, `client/src/app/(dashboard)/master-data/` và 3 khối `UNIT`, `MATERIAL_CATEGORY`, `MATERIAL` trong `client/src/constants/permissions.ts`.
+2. Xóa `client/src/modules/master-data/`, `client/src/app/admin/(panel)/master-data/` và 3 khối `UNIT`, `MATERIAL_CATEGORY`, `MATERIAL` trong `client/src/constants/permissions.ts`.
 3. Xóa các bảng `UnitsOfMeasure`, `MaterialCategories`, `Materials`, `MetalMaterialSpecs` trong `server/database.dbml` (đổi tên file DBML theo dự án).
 4. Dự án mới: tạo CSDL trống rồi `bootstrap` (không còn dữ liệu mẫu → `--demo` tự bỏ qua). Xóa `client/.next` trước khi chạy `tsc` (còn kiểu của route cũ).
 

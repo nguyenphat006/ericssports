@@ -79,7 +79,7 @@ flowchart LR
 ```
 
 - **Hợp đồng API**: backend sinh `server/schema.yml` (OpenAPI) → frontend sinh kiểu `client/src/types/api.generated.ts` (`npm run gen:api`).
-- **Production**: nginx là cổng vào duy nhất (`/api`, `/admin`, `/static` → Django; `/media` → file upload; còn lại → Next.js).
+- **Production**: nginx là cổng vào duy nhất (`/api`, `/django-admin`, `/static` → Django; `/media` → file upload; còn lại — gồm storefront `/` và trang quản trị `/admin` — → Next.js).
 
 ## 5. Cấu trúc thư mục
 
@@ -129,7 +129,9 @@ cd client && npm install && npm run dev
 
 | Địa chỉ | Mô tả |
 |---|---|
-| http://localhost:3000 | Giao diện quản trị |
+| http://localhost:3000 | Storefront (trang bán hàng) |
+| http://localhost:3000/admin | Giao diện quản trị (đăng nhập `/admin/login`) |
+| http://localhost:8000/django-admin/ | Django admin |
 | http://localhost:8000/api/schema/swagger-ui/ | Tài liệu API (Swagger) |
 | http://localhost:8000/api/v1/health/ | Trạng thái hệ thống |
 

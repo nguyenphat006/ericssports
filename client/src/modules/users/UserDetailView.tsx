@@ -14,6 +14,7 @@ import { UserFormModal } from "./components/UserFormModal";
 import { ResetPasswordModal } from "./components/ResetPasswordModal";
 import { useUserHero } from "./hero";
 import type { CreateUserInput, UserItem } from "./types";
+import { adminPath } from "@/config/routes";
 
 const LIST_HREF = "/users";
 
@@ -113,7 +114,7 @@ export function UserDetailView({ userId }: UserDetailViewProps) {
             ? async () => {
                 await deleteMutation.mutateAsync(u.id);
                 toast.success(tc("messages.deleted", { entity: t("entity") }));
-                router.push(LIST_HREF);
+                router.push(adminPath(LIST_HREF));
               }
             : undefined,
         },

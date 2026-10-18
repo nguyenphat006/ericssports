@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import type { DashboardKpi } from "../types";
+import { adminPath } from "@/config/routes";
 
 /** Thẻ KPI gọn: nhãn · số lớn · thay đổi so với kỳ trước. Có `href` thì cả thẻ là link. */
 export function KpiCard({ kpi }: { kpi: DashboardKpi }) {
@@ -24,7 +25,7 @@ export function KpiCard({ kpi }: { kpi: DashboardKpi }) {
     </>
   );
   return kpi.href ? (
-    <Link href={kpi.href} className="kpi-card kpi-card--link">
+    <Link href={adminPath(kpi.href)} className="kpi-card kpi-card--link">
       {body}
     </Link>
   ) : (
