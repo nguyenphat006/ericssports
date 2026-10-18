@@ -53,3 +53,6 @@ Thumbs.db
 client/test-results/
 client/playwright-report/
 client/blob-report/
+
+# Mockup phiên brainstorm (visual companion)
+.superpowers/
