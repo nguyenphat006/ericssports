@@ -11,8 +11,9 @@ import { OrderDetail } from "../components/order/OrderDetail";
 /**
  * Trang kết quả / theo dõi đơn. Xem được khi đơn đặt trên trình duyệt này hoặc thuộc khách đang đăng nhập;
  * còn lại hướng sang tra cứu bằng SĐT (không tiết lộ đơn có tồn tại hay không).
+ * `embedded`: hiển thị trong khung khác (khu tài khoản) — bỏ Container + lề trang.
  */
-export function OrderView({ code, customerId }: { code: string; customerId?: string }) {
+export function OrderView({ code, customerId, embedded = false }: { code: string; customerId?: string; embedded?: boolean }) {
   const t = useTranslations("shop.order");
   const { data: order, isLoading, isError } = useQuery({
     queryKey: ["shop", "order", code, customerId ?? null],
@@ -20,8 +21,9 @@ export function OrderView({ code, customerId }: { code: string; customerId?: str
     retry: false,
   });
 
+  const Wrapper = embedded ? "div" : Container;
   return (
-    <Container className="py-6 lg:py-10">
+    <Wrapper className={embedded ? undefined : "py-6 lg:py-10"}>
       {isLoading ? (
         <>
           <Skeleton className="h-10 w-72" />
@@ -45,6 +47,6 @@ export function OrderView({ code, customerId }: { code: string; customerId?: str
           <OrderDetail order={order} />
         </>
       )}
-    </Container>
+    </Wrapper>
   );
 }

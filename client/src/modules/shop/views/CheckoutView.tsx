@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowLeft, Banknote, ChevronDown, CreditCard, Landmark, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -15,11 +15,12 @@ import { cn } from "@/lib/utils";
 import { CHECKOUT_DEFAULTS, checkoutSchema, type CheckoutFormValues } from "../lib/checkoutSchema";
 import { formatPrice } from "../lib/formatPrice";
 import { useCart } from "../hooks/useCart";
+import { useCustomer } from "../hooks/useCustomer";
 import { useProvinces, useWards } from "../hooks/useShopQueries";
-import { orderService, ShopServiceError } from "../services";
+import { customerService, orderService, ShopServiceError } from "../services";
 import { useCartStore } from "../stores/useCartStore";
 import { useShopPrefs } from "../stores/useShopPrefs";
-import type { PaymentMethod, ShippingMethod } from "../types";
+import type { Address, PaymentMethod, ShippingMethod } from "../types";
 import { Container, ShopButton } from "../components/ui";
 import { CartTotals } from "../components/cart/CartSummary";
 import { AddressFields } from "../components/form/AddressFields";
@@ -96,19 +97,48 @@ export function CheckoutView() {
 
   const form = useForm<CheckoutFormValues>({ resolver: zodResolver(checkoutSchema), defaultValues: CHECKOUT_DEFAULTS, mode: "onTouched" });
   const { register, setValue, handleSubmit, formState } = form;
-  const [provinceCode, shippingMethod, paymentMethod, wardCode] = useWatch({ control: form.control, name: ["provinceCode", "shippingMethod", "paymentMethod", "wardCode"] });
+  const [provinceCode, shippingMethod, paymentMethod, wardCode, street] = useWatch({ control: form.control, name: ["provinceCode", "shippingMethod", "paymentMethod", "wardCode", "street"] });
 
   const { mounted, lines, cart, isLoading } = useCart({ provinceCode: provinceCode || null, method: shippingMethod });
   const { data: provinces } = useProvinces();
   const { data: wards } = useWards(provinceCode || null);
+  const { ready: customerReady, customer } = useCustomer();
+  const { data: addresses } = useQuery({
+    queryKey: ["shop", "addresses", customer?.id],
+    queryFn: () => customerService.listAddresses(customer!.id),
+    enabled: !!customer,
+  });
+  // Địa chỉ đã lưu đang dùng = địa chỉ trùng với giá trị form (sửa tay một ô thì tự bỏ chọn)
+  const selectedAddressId = addresses?.find((a) => a.provinceCode === provinceCode && a.wardCode === wardCode && a.street === street.trim())?.id ?? null;
 
-  // Gợi ý sẵn tỉnh khách đã chọn ở trang sản phẩm / giỏ hàng
+  const applyAddress = (a: Address) => {
+    setValue("name", a.recipient, { shouldValidate: formState.isSubmitted });
+    setValue("phone", a.phone, { shouldValidate: formState.isSubmitted });
+    setValue("provinceCode", a.provinceCode);
+    setValue("wardCode", a.wardCode);
+    setValue("street", a.street);
+  };
+
+  // Điền sẵn: khách đăng nhập -> thông tin + địa chỉ mặc định; khách vãng lai -> tỉnh đã chọn ở trang sản phẩm / giỏ
   const prefilled = useRef(false);
   useEffect(() => {
-    if (!mounted || prefilled.current) return;
+    if (!mounted || !customerReady || prefilled.current) return;
+    if (customer && !addresses) return; // chờ sổ địa chỉ
     prefilled.current = true;
+    if (customer) {
+      if (!form.getValues("name")) setValue("name", customer.name);
+      if (customer.phone && !form.getValues("phone")) setValue("phone", customer.phone);
+      if (customer.email && !form.getValues("email")) setValue("email", customer.email);
+      const preferred = addresses?.find((a) => a.isDefault) ?? addresses?.[0];
+      if (preferred) {
+        applyAddress(preferred);
+        return;
+      }
+    }
     if (savedProvince && !form.getValues("provinceCode")) setValue("provinceCode", savedProvince);
-  }, [form, mounted, savedProvince, setValue]);
+    // applyAddress chỉ gọi setValue (ổn định) — không đưa vào deps để tránh chạy lại
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addresses, customer, customerReady, form, mounted, savedProvince, setValue]);
 
   // Vùng không có giao nhanh -> tự về tiêu chuẩn
   const availableMethods = cart?.availableMethods;
@@ -142,6 +172,7 @@ export function CheckoutView() {
         ...(values.note.trim() && { note: values.note.trim() }),
         lines,
         idempotencyKey,
+        ...(customer && { customerId: customer.id }),
       });
       setPrefProvince(province.code);
       clearCart();
@@ -222,6 +253,17 @@ export function CheckoutView() {
         {t("backToCart")}
       </Link>
       <h1 className="shop-display mt-2 text-[36px] lg:text-[56px]">{t("title")}</h1>
+      {customerReady && !customer && (
+        <p className="mt-1 text-sm text-[var(--c-text-secondary)]">
+          {t.rich("loginHint", {
+            link: (chunks) => (
+              <Link href="/tai-khoan/dang-nhap?next=%2Fthanh-toan" className="font-semibold text-[var(--shop-primary)] hover:underline">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
+      )}
 
       {(cartChanged || blocked) && (
         <div role="alert" className="mt-4 rounded-[6px] border border-[var(--c-error)] bg-[var(--c-error-bg)] p-4 text-sm text-[var(--c-error)]">
@@ -262,6 +304,24 @@ export function CheckoutView() {
             </FormCard>
 
             <FormCard title={t("address")}>
+              {addresses && addresses.length > 0 && (
+                <div className="mb-4">
+                  <p className="mb-2 text-[13px] font-medium">{t("savedAddresses")}</p>
+                  <div className="grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label={t("savedAddresses")}>
+                    {addresses.map((a) => (
+                      <OptionCard
+                        key={a.id}
+                        name="savedAddress"
+                        value={a.id}
+                        checked={selectedAddressId === a.id}
+                        onSelect={() => applyAddress(a)}
+                        title={`${a.recipient} · ${a.phone}`}
+                        hint={`${a.street}, ${a.wardName}, ${a.provinceName}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
               <AddressFields<CheckoutFormValues> idPrefix="co" />
             </FormCard>
 

@@ -2,16 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
+import { ChevronDown, LogOut, MapPin, Menu, Package, Search, ShoppingBag, User } from "lucide-react";
+import { toast } from "sonner";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useMounted } from "@/hooks/useMounted";
 import { cn } from "@/lib/utils";
 import { SHOP_NAVIGATION, type ShopNavItem } from "../../config/navigation";
 import { archivo } from "../../fonts";
 import { useCartTabSync } from "../../hooks/useCart";
+import { useCustomer } from "../../hooks/useCustomer";
+import { useCustomerAuth } from "../../stores/useCustomerAuth";
 import { selectItemCount, useCartStore } from "../../stores/useCartStore";
 import { CartDrawer } from "../cart/CartDrawer";
 import { Container } from "../ui";
@@ -116,10 +120,86 @@ function MobileNavItem({ item, onNavigate }: { item: ShopNavItem; onNavigate: ()
   );
 }
 
+/** Tài khoản khách: chưa đăng nhập -> link đăng nhập; đã đăng nhập -> menu đơn hàng / sổ địa chỉ / đăng xuất */
+function AccountMenu() {
+  const t = useTranslations("shop.header");
+  const ta = useTranslations("shop.account");
+  const router = useRouter();
+  const { customer } = useCustomer();
+  const logout = useCustomerAuth((s) => s.logout);
+  if (!customer) {
+    return (
+      <Link href="/tai-khoan/dang-nhap" className={cn(ICON_BUTTON, "hidden sm:inline-flex")} aria-label={t("account")}>
+        <User className="size-5" aria-hidden />
+      </Link>
+    );
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className={cn(ICON_BUTTON, "hidden sm:inline-flex")} aria-label={ta("menu")}>
+        <span className="flex size-7 items-center justify-center rounded-full bg-[var(--shop-ink)] text-xs font-bold text-white" aria-hidden>
+          {customer.name.trim().split(/\s+/).pop()?.[0]?.toUpperCase()}
+        </span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className={cn("shop-theme w-56", archivo.variable)}>
+        <DropdownMenuLabel className="truncate">{ta("hello", { name: customer.name })}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/tai-khoan/don-hang">
+            <Package />
+            {ta("orders")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/tai-khoan/dia-chi">
+            <MapPin />
+            {ta("addresses")}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={() => {
+            logout();
+            toast.success(ta("loggedOut"));
+            router.push("/");
+          }}
+        >
+          <LogOut />
+          {ta("logout")}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+/** Tài khoản trong menu trượt (mobile không có icon tài khoản trên header) */
+function MobileAccountLinks({ onNavigate }: { onNavigate: () => void }) {
+  const ta = useTranslations("shop.account");
+  const { customer } = useCustomer();
+  const links = customer
+    ? [
+        { href: "/tai-khoan/don-hang", label: ta("orders"), icon: Package },
+        { href: "/tai-khoan/dia-chi", label: ta("addresses"), icon: MapPin },
+      ]
+    : [{ href: "/tai-khoan/dang-nhap", label: ta("loginTitle"), icon: User }];
+  return (
+    <ul className="mt-auto border-t border-[var(--c-border)] px-4 py-2">
+      {links.map(({ href, label, icon: Icon }) => (
+        <li key={href}>
+          <Link href={href} onClick={onNavigate} className="flex items-center gap-2 py-2.5 text-sm font-medium">
+            <Icon className="size-4" aria-hidden />
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
  * Header storefront: dính đầu trang. Desktop: logo · tìm kiếm có gợi ý · tài khoản · giỏ hàng + menu danh mục (mega menu).
  * Mobile: menu (Sheet trái) · logo · tìm kiếm (mở hàng ô nhập) · giỏ hàng.
- * Giỏ hàng: badge số lượng + ngăn kéo. Tài khoản nối ở mốc M7.
+ * Giỏ hàng: badge số lượng + ngăn kéo. Tài khoản: đăng nhập / menu tài khoản khách.
  */
 export function ShopHeader() {
   const t = useTranslations("shop.header");
@@ -157,9 +237,7 @@ export function ShopHeader() {
           >
             <Search className="size-5" aria-hidden />
           </button>
-          <button type="button" className={cn(ICON_BUTTON, "hidden sm:inline-flex")} aria-label={t("account")}>
-            <User className="size-5" aria-hidden />
-          </button>
+          <AccountMenu />
           <button type="button" className={cn(ICON_BUTTON, "relative")} aria-label={cartCount ? tc("openCart", { count: cartCount }) : t("cart")} onClick={openCart}>
             <ShoppingBag className="size-5" aria-hidden />
             {cartCount > 0 && (
@@ -200,6 +278,7 @@ export function ShopHeader() {
               <MobileNavItem key={item.key} item={item} onNavigate={() => setMenuOpen(false)} />
             ))}
           </ul>
+          <MobileAccountLinks onNavigate={() => setMenuOpen(false)} />
         </SheetContent>
       </Sheet>
       <CartDrawer />
