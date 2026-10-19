@@ -20,6 +20,8 @@ export interface PricedCartLine extends CartLine {
   unitPrice: number;
   compareAtPrice?: number | null;
   services: { id: string; name: string; price: number }[];
+  /** Mọi dịch vụ thêm sản phẩm này có (trang giỏ cho bật / tắt) */
+  availableServices: { id: string; name: string; price: number }[];
   /** Giá dịch vụ thêm cho 1 sản phẩm */
   servicesUnitPrice: number;
   lineTotal: number;

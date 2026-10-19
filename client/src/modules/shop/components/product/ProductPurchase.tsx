@@ -3,42 +3,18 @@
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
-import { Minus, Plus, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { discountPercent, formatPrice } from "../../lib/formatPrice";
 import { optionState, selectOption } from "../../lib/variants";
 import { MAX_LINE_QUANTITY, useCartStore } from "../../stores/useCartStore";
 import type { CartLine, Product, Variant } from "../../types";
-import { Price, Rating, ShopBadge, ShopButton } from "../ui";
+import { Price, QuantityStepper, Rating, ShopBadge, ShopButton } from "../ui";
 import { ProductGallery } from "./ProductGallery";
 import { ShippingEstimate } from "./ShippingEstimate";
 
 const LOW_STOCK = 5;
-
-function QuantityStepper({ value, max, onChange }: { value: number; max: number; onChange: (n: number) => void }) {
-  const t = useTranslations("shop.product");
-  const clamp = (n: number) => Math.max(1, Math.min(max, Number.isFinite(n) ? Math.floor(n) : 1));
-  const btn = "flex size-11 items-center justify-center text-[var(--shop-ink)] transition-colors hover:bg-[var(--shop-muted)] disabled:opacity-40";
-  return (
-    <div className="inline-flex h-11 items-center rounded-[4px] border border-[var(--c-border-strong)] bg-white">
-      <button type="button" className={btn} aria-label={t("decrease")} disabled={value <= 1} onClick={() => onChange(clamp(value - 1))}>
-        <Minus className="size-4" aria-hidden />
-      </button>
-      <input
-        aria-label={t("quantity")}
-        inputMode="numeric"
-        className="h-full w-12 border-x border-[var(--c-border)] text-center text-sm font-semibold tabular-nums outline-none"
-        value={value}
-        onChange={(e) => onChange(clamp(Number(e.target.value.replace(/\D/g, "")) || 1))}
-      />
-      <button type="button" className={btn} aria-label={t("increase")} disabled={value >= max} onClick={() => onChange(clamp(value + 1))}>
-        <Plus className="size-4" aria-hidden />
-      </button>
-    </div>
-  );
-}
 
 /**
  * Khu vực mua hàng của trang sản phẩm (spec 5.2): gallery + biến thể (đổi giá / ảnh / tồn kho tại chỗ, ?v= trên URL)
@@ -87,8 +63,8 @@ export function ProductPurchase({ product, initialVariantId }: { product: Produc
       router.push("/thanh-toan");
       return;
     }
+    // Phản hồi bằng ngăn kéo giỏ hàng (thấy ngay dòng vừa thêm + tạm tính)
     openDrawer();
-    toast.success(t("added"), { action: { label: t("viewCart"), onClick: () => router.push("/gio-hang") } });
   };
 
   const badges = (

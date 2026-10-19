@@ -7,9 +7,13 @@ import { useTranslations } from "next-intl";
 import { ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { useMounted } from "@/hooks/useMounted";
 import { cn } from "@/lib/utils";
 import { SHOP_NAVIGATION, type ShopNavItem } from "../../config/navigation";
 import { archivo } from "../../fonts";
+import { useCartTabSync } from "../../hooks/useCart";
+import { selectItemCount, useCartStore } from "../../stores/useCartStore";
+import { CartDrawer } from "../cart/CartDrawer";
 import { Container } from "../ui";
 import { SearchBox } from "./SearchBox";
 import { Wordmark } from "./Wordmark";
@@ -115,13 +119,19 @@ function MobileNavItem({ item, onNavigate }: { item: ShopNavItem; onNavigate: ()
 /**
  * Header storefront: dính đầu trang. Desktop: logo · tìm kiếm có gợi ý · tài khoản · giỏ hàng + menu danh mục (mega menu).
  * Mobile: menu (Sheet trái) · logo · tìm kiếm (mở hàng ô nhập) · giỏ hàng.
- * Tài khoản / giỏ hàng nối chức năng ở mốc M5, M7.
+ * Giỏ hàng: badge số lượng + ngăn kéo. Tài khoản nối ở mốc M7.
  */
 export function ShopHeader() {
   const t = useTranslations("shop.header");
+  const tc = useTranslations("shop.cart");
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const openCart = useCartStore((s) => s.openDrawer);
+  const storedCount = useCartStore(selectItemCount);
+  // Số lượng giỏ đọc từ localStorage -> chỉ hiện sau khi mount (khớp HTML server)
+  const cartCount = useMounted() ? storedCount : 0;
+  useCartTabSync();
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--c-border)] bg-white">
@@ -150,8 +160,13 @@ export function ShopHeader() {
           <button type="button" className={cn(ICON_BUTTON, "hidden sm:inline-flex")} aria-label={t("account")}>
             <User className="size-5" aria-hidden />
           </button>
-          <button type="button" className={ICON_BUTTON} aria-label={t("cart")}>
+          <button type="button" className={cn(ICON_BUTTON, "relative")} aria-label={cartCount ? tc("openCart", { count: cartCount }) : t("cart")} onClick={openCart}>
             <ShoppingBag className="size-5" aria-hidden />
+            {cartCount > 0 && (
+              <span className="absolute top-1 right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--shop-primary)] px-1 text-[10px] font-bold text-white tabular-nums" aria-hidden>
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
           </button>
         </div>
       </Container>
@@ -187,6 +202,7 @@ export function ShopHeader() {
           </ul>
         </SheetContent>
       </Sheet>
+      <CartDrawer />
     </header>
   );
 }
