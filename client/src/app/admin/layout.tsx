@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeArea } from "@/components/layouts/ThemeArea";
 import { APP_CONFIG } from "@/config/app";
+import { NumberFormatProvider } from "@/providers/NumberFormatProvider";
 
 export const metadata: Metadata = {
   // Trang con chỉ cần khai báo `title: "Tên trang"` -> tự thành "Tên trang | <APP_CONFIG.name>"
@@ -14,7 +15,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <ThemeArea area="admin" />
-      {children}
+      <NumberFormatProvider>{children}</NumberFormatProvider>
     </>
   );
 }
