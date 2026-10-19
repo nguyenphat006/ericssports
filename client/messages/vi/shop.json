@@ -14,7 +14,8 @@
     "account": "Tài khoản",
     "cart": "Giỏ hàng",
     "openMenu": "Mở menu",
-    "menuTitle": "Danh mục sản phẩm"
+    "menuTitle": "Danh mục sản phẩm",
+    "viewAllIn": "Xem tất cả {category}"
   },
   "nav": {
     "cardio": "Cardio",
@@ -98,5 +99,52 @@
     "badgeNew": "Mới",
     "badgeBestseller": "Bán chạy",
     "badgeFreeInstall": "Miễn phí lắp đặt"
+  },
+  "catalog": {
+    "breadcrumbHome": "Trang chủ",
+    "breadcrumbLabel": "Đường dẫn",
+    "resultCount": "{count} sản phẩm",
+    "subcategories": "Danh mục con",
+    "filters": "Bộ lọc",
+    "filtersWithCount": "Bộ lọc ({count})",
+    "clearAll": "Xóa tất cả",
+    "showResults": "Xem {count} sản phẩm",
+    "sortLabel": "Sắp xếp",
+    "sort": {
+      "featured": "Nổi bật",
+      "bestseller": "Bán chạy",
+      "newest": "Mới nhất",
+      "price_asc": "Giá thấp đến cao",
+      "price_desc": "Giá cao đến thấp"
+    },
+    "brand": "Thương hiệu",
+    "price": "Khoảng giá",
+    "priceFrom": "Từ",
+    "priceTo": "Đến",
+    "apply": "Áp dụng",
+    "inStock": "Chỉ hiện hàng còn",
+    "yes": "Có",
+    "priceUnder": "Dưới {max}",
+    "priceBetween": "{min} – {max}",
+    "priceOver": "Trên {min}",
+    "rangeLabel": "{min} – {max} {unit}",
+    "rangeMin": "Tối thiểu",
+    "rangeMax": "Tối đa",
+    "loadMore": "Xem thêm",
+    "shownOf": "Đang xem {shown} / {total} sản phẩm",
+    "emptyTitle": "Không có sản phẩm phù hợp",
+    "emptyText": "Thử bỏ bớt bộ lọc hoặc chọn danh mục khác.",
+    "removeFilter": "Bỏ lọc {label}",
+    "loading": "Đang tải"
+  },
+  "search": {
+    "title": "Kết quả cho “{q}”",
+    "titleEmpty": "Tìm kiếm",
+    "prompt": "Nhập tên sản phẩm, thương hiệu hoặc danh mục để tìm.",
+    "metaTitle": "Tìm kiếm: {q}",
+    "suggestProducts": "Sản phẩm",
+    "suggestCategories": "Danh mục",
+    "viewAllResults": "Xem tất cả kết quả cho “{q}”",
+    "noSuggestions": "Không tìm thấy gợi ý cho “{q}”"
   }
 }

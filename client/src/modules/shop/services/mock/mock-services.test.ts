@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { SHOP_NAVIGATION } from "../../config/navigation";
 import { DEFAULT_PAGE_SIZE } from "../../lib/filters";
 import { MOCK_PRODUCT_LIST } from "../../mocks/products";
 import { MOCK_ATTRIBUTES, MOCK_BRANDS, MOCK_CATEGORIES } from "../../mocks/taxonomy";
@@ -83,6 +84,12 @@ describe("mockCatalogService", () => {
     expect(s.products.length).toBeGreaterThan(0);
     expect(s.products.every((p) => p.name.toLowerCase().includes("máy"))).toBe(true);
     expect((await catalog.suggest("tham")).categories.map((c) => c.slug)).toContain("tham-tap");
+  });
+
+  it("mọi link danh mục trong menu header trỏ tới danh mục có thật", async () => {
+    const paths = new Set((await catalog.listCategories()).map((c) => c.path));
+    const hrefs = SHOP_NAVIGATION.flatMap((i) => [i.href, ...(i.children ?? []).map((c) => c.href)]).filter((h) => h.startsWith("/danh-muc/"));
+    expect(hrefs.filter((h) => !paths.has(h))).toEqual([]);
   });
 
   it("đường dẫn danh mục cha/con", async () => {

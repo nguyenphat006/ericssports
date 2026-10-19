@@ -14,7 +14,8 @@
     "account": "Account",
     "cart": "Cart",
     "openMenu": "Open menu",
-    "menuTitle": "Product categories"
+    "menuTitle": "Product categories",
+    "viewAllIn": "View all {category}"
   },
   "nav": {
     "cardio": "Cardio",
@@ -98,5 +99,52 @@
     "badgeNew": "New",
     "badgeBestseller": "Best seller",
     "badgeFreeInstall": "Free installation"
+  },
+  "catalog": {
+    "breadcrumbHome": "Home",
+    "breadcrumbLabel": "Breadcrumb",
+    "resultCount": "{count} products",
+    "subcategories": "Subcategories",
+    "filters": "Filters",
+    "filtersWithCount": "Filters ({count})",
+    "clearAll": "Clear all",
+    "showResults": "Show {count} products",
+    "sortLabel": "Sort by",
+    "sort": {
+      "featured": "Featured",
+      "bestseller": "Best selling",
+      "newest": "Newest",
+      "price_asc": "Price: low to high",
+      "price_desc": "Price: high to low"
+    },
+    "brand": "Brand",
+    "price": "Price range",
+    "priceFrom": "From",
+    "priceTo": "To",
+    "apply": "Apply",
+    "inStock": "In stock only",
+    "yes": "Yes",
+    "priceUnder": "Under {max}",
+    "priceBetween": "{min} – {max}",
+    "priceOver": "Over {min}",
+    "rangeLabel": "{min} – {max} {unit}",
+    "rangeMin": "Minimum",
+    "rangeMax": "Maximum",
+    "loadMore": "Load more",
+    "shownOf": "Showing {shown} of {total} products",
+    "emptyTitle": "No matching products",
+    "emptyText": "Try removing some filters or choose another category.",
+    "removeFilter": "Remove filter {label}",
+    "loading": "Loading"
+  },
+  "search": {
+    "title": "Results for “{q}”",
+    "titleEmpty": "Search",
+    "prompt": "Enter a product name, brand or category.",
+    "metaTitle": "Search: {q}",
+    "suggestProducts": "Products",
+    "suggestCategories": "Categories",
+    "viewAllResults": "See all results for “{q}”",
+    "noSuggestions": "No suggestions for “{q}”"
   }
 }

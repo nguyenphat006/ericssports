@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -10,39 +11,86 @@ import { cn } from "@/lib/utils";
 import { SHOP_NAVIGATION, type ShopNavItem } from "../../config/navigation";
 import { archivo } from "../../fonts";
 import { Container } from "../ui";
+import { SearchBox } from "./SearchBox";
 import { Wordmark } from "./Wordmark";
 
 const ICON_BUTTON =
   "inline-flex size-10 items-center justify-center rounded-[4px] text-[var(--shop-ink)] transition-colors hover:bg-[var(--shop-muted)] focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none";
 
-/**
- * Ô tìm kiếm — GĐ1 chỉ có giao diện; GĐ2 nối gợi ý tức thì + trang /tim-kiem.
- * Chặn submit để Enter không tải lại trang.
- */
-function SearchField({ autoFocus = false, className }: { autoFocus?: boolean; className?: string }) {
-  const t = useTranslations("shop.header");
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/** Mục menu desktop: link danh mục cha + bảng danh mục con mở khi rê chuột / focus bàn phím; Esc đóng. */
+function DesktopNavItem({ item, pathname }: { item: ShopNavItem; pathname: string }) {
+  const t = useTranslations();
+  const [closed, setClosed] = useState(false);
+  const active = isActive(pathname, item.href);
+  const linkClass = cn(
+    "flex h-11 items-center gap-1 border-b-2 text-sm font-semibold transition-colors",
+    active ? "border-[var(--shop-primary)]" : "border-transparent hover:border-[var(--c-border-strong)]",
+    item.highlight && "text-[var(--shop-primary)]",
+  );
+  if (!item.children?.length) {
+    return (
+      <li>
+        <Link href={item.href} className={linkClass} aria-current={active ? "page" : undefined}>
+          {t(item.label)}
+        </Link>
+      </li>
+    );
+  }
   return (
-    <form role="search" onSubmit={(e) => e.preventDefault()} className={cn("relative", className)}>
-      <label htmlFor={autoFocus ? "shop-search-mobile" : "shop-search"} className="sr-only">
-        {t("searchLabel")}
-      </label>
-      <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-[var(--c-text-tertiary)]" aria-hidden />
-      <input
-        id={autoFocus ? "shop-search-mobile" : "shop-search"}
-        type="search"
-        autoFocus={autoFocus}
-        placeholder={t("searchPlaceholder")}
-        className="h-11 w-full rounded-[4px] border border-transparent bg-[var(--shop-muted)] pr-3 pl-9 text-sm text-[var(--shop-ink)] outline-none placeholder:text-[var(--c-text-tertiary)] focus:border-[var(--c-border-strong)] focus:bg-white"
-      />
-    </form>
+    <li
+      className="group relative"
+      onMouseLeave={() => setClosed(false)}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setClosed(true);
+          (e.currentTarget.querySelector("a") as HTMLElement | null)?.focus();
+        }
+      }}
+    >
+      <Link href={item.href} className={linkClass} aria-current={active ? "page" : undefined} onFocus={() => setClosed(false)}>
+        {t(item.label)}
+        <ChevronDown className="size-3.5 text-[var(--c-text-tertiary)]" aria-hidden />
+      </Link>
+      <div
+        className={cn(
+          "invisible absolute top-full left-0 z-50 min-w-[220px] translate-y-1 rounded-b-[6px] border border-t-0 border-[var(--c-border)] bg-white p-2 opacity-0 shadow-lg transition",
+          !closed && "group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100",
+        )}
+      >
+        <ul>
+          {item.children.map((c) => (
+            <li key={c.key}>
+              <Link
+                href={c.href}
+                className={cn(
+                  "block rounded-[4px] px-3 py-2 text-sm hover:bg-[var(--shop-muted)] focus-visible:bg-[var(--shop-muted)] focus-visible:outline-none",
+                  isActive(pathname, c.href) && "font-semibold text-[var(--shop-primary)]",
+                )}
+              >
+                {t(c.label)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
   );
 }
 
-function MobileNavItem({ item }: { item: ShopNavItem }) {
+function MobileNavItem({ item, onNavigate }: { item: ShopNavItem; onNavigate: () => void }) {
   const t = useTranslations();
   const label = t(item.label);
+  const link = (href: string, text: string, className: string) => (
+    <Link href={href} onClick={onNavigate} className={className}>
+      {text}
+    </Link>
+  );
   if (!item.children?.length) {
-    return <li className={cn("py-3 text-[15px] font-semibold", item.highlight && "text-[var(--shop-primary)]")}>{label}</li>;
+    return <li>{link(item.href, label, cn("block py-3 text-[15px] font-semibold", item.highlight && "text-[var(--shop-primary)]"))}</li>;
   }
   return (
     <li>
@@ -53,10 +101,9 @@ function MobileNavItem({ item }: { item: ShopNavItem }) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <ul className="pb-2 pl-3">
+            <li>{link(item.href, t("shop.header.viewAllIn", { category: label }), "block py-2 text-sm font-medium text-[var(--shop-primary)]")}</li>
             {item.children.map((c) => (
-              <li key={c.key} className="py-2 text-sm text-[var(--c-text-secondary)]">
-                {t(c.label)}
-              </li>
+              <li key={c.key}>{link(c.href, t(c.label), "block py-2 text-sm text-[var(--c-text-secondary)]")}</li>
             ))}
           </ul>
         </CollapsibleContent>
@@ -66,13 +113,13 @@ function MobileNavItem({ item }: { item: ShopNavItem }) {
 }
 
 /**
- * Header storefront: dính đầu trang. Desktop: logo · tìm kiếm · tài khoản · giỏ hàng + hàng menu danh mục.
+ * Header storefront: dính đầu trang. Desktop: logo · tìm kiếm có gợi ý · tài khoản · giỏ hàng + menu danh mục (mega menu).
  * Mobile: menu (Sheet trái) · logo · tìm kiếm (mở hàng ô nhập) · giỏ hàng.
- * GĐ1: menu chưa có trang danh mục, tài khoản / giỏ hàng chưa có chức năng (GĐ2).
+ * Tài khoản / giỏ hàng nối chức năng ở mốc M5, M7.
  */
 export function ShopHeader() {
   const t = useTranslations("shop.header");
-  const tAll = useTranslations();
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -87,7 +134,7 @@ export function ShopHeader() {
           <Wordmark />
         </Link>
 
-        <SearchField className="mx-auto hidden w-full max-w-xl lg:block" />
+        <SearchBox className="mx-auto hidden w-full max-w-xl lg:block" />
 
         <div className="ml-auto flex items-center gap-1 lg:ml-0">
           <button
@@ -112,18 +159,16 @@ export function ShopHeader() {
       {searchOpen && (
         <div id="shop-mobile-search" className="border-t border-[var(--c-border)] py-2 lg:hidden">
           <Container>
-            <SearchField autoFocus />
+            <SearchBox autoFocus onNavigate={() => setSearchOpen(false)} />
           </Container>
         </div>
       )}
 
       <nav aria-label={t("mainNav")} className="hidden border-t border-[var(--c-border)] lg:block">
         <Container>
-          <ul className="flex h-11 items-center gap-7 text-sm font-semibold">
+          <ul className="flex items-center gap-7">
             {SHOP_NAVIGATION.map((item) => (
-              <li key={item.key} className={cn(item.highlight && "text-[var(--shop-primary)]")}>
-                {tAll(item.label)}
-              </li>
+              <DesktopNavItem key={item.key} item={item} pathname={pathname} />
             ))}
           </ul>
         </Container>
@@ -137,7 +182,7 @@ export function ShopHeader() {
           <SheetTitle className="shop-eyebrow px-4 pt-4 text-[var(--c-text-tertiary)]">{t("menuTitle")}</SheetTitle>
           <ul className="divide-y divide-[var(--c-border)] overflow-y-auto px-4">
             {SHOP_NAVIGATION.map((item) => (
-              <MobileNavItem key={item.key} item={item} />
+              <MobileNavItem key={item.key} item={item} onNavigate={() => setMenuOpen(false)} />
             ))}
           </ul>
         </SheetContent>
