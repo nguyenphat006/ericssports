@@ -14,7 +14,7 @@ async function ProductRow({ title, ids }: { title: string; ids: string[] }) {
   return (
     <section className="mt-14">
       <SectionHeading title={title} />
-      <ul className="flex snap-x gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:gap-4 lg:overflow-visible">
+      <ul className="relative flex snap-x gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:gap-4 lg:overflow-visible">
         {products.slice(0, 4).map((p) => (
           <li key={p.id} className="w-[46%] shrink-0 snap-start sm:w-[31%] lg:w-auto">
             <ProductCard product={p} href={`/san-pham/${p.slug}`} />

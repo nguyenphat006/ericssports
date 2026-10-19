@@ -70,19 +70,12 @@ export function CatalogListing({ basePath, query: serverQuery, attributes, facet
   }
   const clearAll: Partial<ProductQuery> = { price: undefined, brandSlugs: [], attributes: {}, inStock: false };
 
-  const panel = (
-    <FilterPanel
-      query={query}
-      facets={facets}
-      attributes={attributes}
-      onChange={(patch) => update(patch)}
-    />
-  );
+  const panel = (idPrefix: string) => <FilterPanel idPrefix={idPrefix} query={query} facets={facets} attributes={attributes} onChange={(patch) => update(patch)} />;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[260px_1fr] lg:gap-8">
       <aside className="hidden lg:block" aria-label={t("filters")}>
-        <div className="sticky top-[132px] max-h-[calc(100vh-148px)] overflow-y-auto pr-2">{panel}</div>
+        <div className="sticky top-[132px] max-h-[calc(100vh-148px)] overflow-y-auto pr-2">{panel("filter")}</div>
       </aside>
 
       <div className="min-w-0">
@@ -174,7 +167,7 @@ export function CatalogListing({ basePath, query: serverQuery, attributes, facet
           <div className="border-b border-[var(--c-border)] px-4 py-3">
             <SheetTitle className="shop-display-soft text-lg">{t("filters")}</SheetTitle>
           </div>
-          <div className="overflow-y-auto px-4 py-4">{panel}</div>
+          <div className="overflow-y-auto px-4 py-4">{panel("filter-sheet")}</div>
           <div className="flex gap-2 border-t border-[var(--c-border)] p-3">
             {activeCount > 0 && (
               <ShopButton variant="ghost" className="flex-1" onClick={() => update(clearAll)}>

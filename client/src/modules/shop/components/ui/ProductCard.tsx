@@ -62,7 +62,8 @@ export function ProductCard({ product, href, priority = false, className }: Prod
   );
 
   const classes = cn(
-    "group flex h-full flex-col overflow-hidden rounded-[6px] bg-white text-left outline-none",
+    // relative: chứa các span sr-only (absolute) bên trong thẻ — không thì chúng thoát khỏi vùng cuộn ngang và làm tràn trang
+    "group relative flex h-full flex-col overflow-hidden rounded-[6px] bg-white text-left outline-none",
     "focus-visible:ring-[3px] focus-visible:ring-ring/50",
     className,
   );

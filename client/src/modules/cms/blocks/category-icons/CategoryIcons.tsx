@@ -33,7 +33,7 @@ export const CategoryIcons: BlockComponent<CategoryIconsProps> = async ({ props 
     <section className="py-10 lg:py-14">
       <Container>
         {props.title && <SectionHeading title={props.title} />}
-        <ul className="flex snap-x gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-6 lg:gap-4">
+        <ul className="relative flex snap-x gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible lg:grid-cols-6 lg:gap-4">
           {list.map((c) => (
             <li key={c.id} className="w-28 shrink-0 snap-start sm:w-auto">
               <Link href={c.path} className="group block text-center outline-none">

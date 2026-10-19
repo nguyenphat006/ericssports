@@ -10,6 +10,7 @@
     "gen:api": "openapi-typescript ../server/schema.yml -o src/types/api.generated.ts",
     "gen:module": "node scripts/gen-module.mjs",
     "test:e2e": "playwright test",
+    "test:e2e:shop": "playwright test e2e/storefront.spec.ts",
     "i18n:check": "node scripts/check-i18n.mjs",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"

@@ -18,6 +18,7 @@ Env: `.env.local` (mẫu `.env.example`) — `NEXT_PUBLIC_API_URL` trỏ tới `
 ## Bản đồ nhanh
 - `src/app/` — route mỏng: `(shop)/` storefront ở `/`; `admin/login` + `admin/(panel)/` trang quản trị ở `/admin/*` (đường dẫn backend lưu tương đối, đi qua `adminPath()` ở `src/config/routes.ts`). `globals.css`: token màu `--c-*` (sáng/tối) + token shadcn trỏ về chúng.
 - `src/modules/<feature>/` — toàn bộ logic màn hình. Mẫu: `master-data/units` (danh sách), `master-data/materials` (có chi tiết).
+- `src/modules/shop/`, `src/modules/cms/` — storefront + CMS dạng khối (dữ liệu qua service, `NEXT_PUBLIC_DATA_SOURCE=mock|api`). Hướng dẫn: `../docs/STOREFRONT.md`.
 - `src/components/ui/` — primitive shadcn (sinh bằng CLI, hạn chế sửa). `controls/` — Combobox, TreeSelect, DateRangePicker, NumberInput, FileDropzone.
 - `src/components/form/` — FormDialog + các trường react-hook-form. `feedback/` — `useConfirm`, Spinner.
 - `src/components/list/`, `detail/` — khung trang danh sách / chi tiết. `common/` — PageHeader, StatusBadge, EmptyState, DeleteConfirm, ExportConfigModal, ExcelImportModal, AttachmentManager...

@@ -12,6 +12,7 @@ Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Vi�
 - `server/database.dbml` — **thiết kế CSDL duy nhất (single source of truth)**.
 - `docker-compose.yml` — api, db (postgres 16), redis, celery_worker.
 - `docs/GLOBAL_SEARCH.md` — tìm kiếm toàn cục (sidebar / Ctrl K): luồng, RBAC, cách thêm nguồn tìm `search.py`.
+- `docs/STOREFRONT.md` — storefront (`/`) + CMS dạng khối: bản đồ module, lớp dữ liệu mock/api, cách thêm khối, bẫy đã gặp.
 - `docs/TEMPLATE.md` — repo này là **template**: có sẵn gì, cách clone / đổi thương hiệu / thêm module / bỏ module mẫu.
 
 ## Lệnh thường dùng

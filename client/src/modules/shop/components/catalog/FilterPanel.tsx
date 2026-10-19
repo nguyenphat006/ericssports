@@ -11,6 +11,8 @@ import type { Attribute, AttributeFilter, Facet, ProductQuery } from "../../type
 import { Chip } from "../ui";
 
 interface FilterPanelProps {
+  /** Tiền tố id — bảng lọc render 2 nơi (cột trái + ngăn kéo mobile), id phải khác nhau để nhãn trỏ đúng ô */
+  idPrefix: string;
   query: ProductQuery;
   facets: Facet[];
   attributes: Attribute[];
@@ -97,7 +99,7 @@ function RangeInputs({
 }
 
 /** Bảng lọc: sinh từ facet (thương hiệu, giá, thuộc tính của danh mục) + còn hàng. Dùng chung cho cột trái và ngăn kéo mobile. */
-export function FilterPanel({ query, facets, attributes, onChange }: FilterPanelProps) {
+export function FilterPanel({ idPrefix, query, facets, attributes, onChange }: FilterPanelProps) {
   const t = useTranslations("shop.catalog");
   const presetLabel = (p: { min?: number; max?: number }) => {
     if (p.min === undefined) return t("priceUnder", { max: formatPrice(p.max) });
@@ -117,10 +119,10 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
   return (
     <div>
       <div className="flex items-center justify-between border-b border-[var(--c-border)] pb-4">
-        <label htmlFor="filter-in-stock" className="text-sm font-semibold">
+        <label htmlFor={`${idPrefix}-in-stock`} className="text-sm font-semibold">
           {t("inStock")}
         </label>
-        <Switch id="filter-in-stock" checked={query.inStock} onCheckedChange={(v) => onChange({ inStock: v })} />
+        <Switch id={`${idPrefix}-in-stock`} checked={query.inStock} onCheckedChange={(v) => onChange({ inStock: v })} />
       </div>
 
       {priceFacet && (
@@ -137,7 +139,7 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
           </div>
           <RangeInputs
             key={`price-${query.price?.min}-${query.price?.max}`}
-            idPrefix="filter-price"
+            idPrefix={`${idPrefix}-price`}
             min={query.price?.min}
             max={query.price?.max}
             placeholderMin={t("priceFrom")}
@@ -152,7 +154,7 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
           {brandFacet.options.map((o) => (
             <CheckboxRow
               key={o.value}
-              id={`filter-brand-${o.value}`}
+              id={`${idPrefix}-brand-${o.value}`}
               label={o.label}
               count={o.count}
               checked={query.brandSlugs.includes(o.value)}
@@ -174,7 +176,7 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
               {f.options.map((o) => (
                 <CheckboxRow
                   key={o.value}
-                  id={`filter-${attr.slug}-${o.value}`}
+                  id={`${idPrefix}-${attr.slug}-${o.value}`}
                   label={o.label}
                   count={o.count}
                   checked={values.includes(o.value)}
@@ -191,7 +193,7 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
           return (
             <Section key={attr.id} title={attr.name}>
               <CheckboxRow
-                id={`filter-${attr.slug}`}
+                id={`${idPrefix}-${attr.slug}`}
                 label={t("yes")}
                 count={f.count}
                 checked={current?.kind === "boolean"}
@@ -205,7 +207,7 @@ export function FilterPanel({ query, facets, attributes, onChange }: FilterPanel
           <Section key={attr.id} title={`${attr.name}${attr.unit ? ` (${attr.unit})` : ""}`}>
             <RangeInputs
               key={`${attr.id}-${range?.min}-${range?.max}`}
-              idPrefix={`filter-${attr.slug}`}
+              idPrefix={`${idPrefix}-${attr.slug}`}
               min={range?.min}
               max={range?.max}
               placeholderMin={String(f.min)}

@@ -6,6 +6,7 @@ Template quản trị (admin) full-stack dùng làm nền cho mọi dự án qu�
 
 | Tài liệu | Nội dung |
 |---|---|
+| [`docs/STOREFRONT.md`](docs/STOREFRONT.md) | Storefront Ericssports + CMS dạng khối: cấu trúc, dữ liệu mock/api, thêm khối, E2E |
 | [`docs/TEMPLATE.md`](docs/TEMPLATE.md) | Clone, đổi thương hiệu, sinh module, bỏ module mẫu, deploy |
 | [`docs/GLOBAL_SEARCH.md`](docs/GLOBAL_SEARCH.md) | Tìm kiếm toàn cục (Ctrl K): luồng, RBAC, thêm nguồn tìm |
 | [`server/README.md`](server/README.md) | Backend: cấu trúc, cấu hình, API, phân quyền, test |

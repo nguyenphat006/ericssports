@@ -3,7 +3,10 @@ import { expect, test, type Page } from "@playwright/test";
 const USERNAME = process.env.E2E_USERNAME || "admin";
 const PASSWORD = process.env.E2E_PASSWORD || "";
 
-/** Các màn hình lõi của template (module mẫu master-data được kiểm tra nếu có trong menu) */
+/**
+ * Smoke test trang quản trị (cần backend + tài khoản). Storefront (không cần backend): e2e/storefront.spec.ts.
+ * Các màn hình lõi của template (module mẫu master-data được kiểm tra nếu có trong menu)
+ */
 const CORE_PAGES = ["/admin", "/admin/users", "/admin/audit-logs", "/admin/settings/modules", "/admin/profile"];
 
 function trackErrors(page: Page) {
@@ -66,25 +69,6 @@ test("chuyển giao diện tối được lưu sau khi tải lại", async ({ pa
   await page.evaluate(() => localStorage.setItem("app_theme_mode", "light"));
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-});
-
-test("đường dẫn không tồn tại hiển thị trang 404 của storefront", async ({ page }) => {
-  const res = await page.goto("/duong-dan-khong-ton-tai");
-  expect(res?.status()).toBe(404);
-  await expect(page.getByRole("heading", { name: "Không tìm thấy trang" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Về trang chủ" })).toHaveAttribute("href", "/");
-});
-
-test("storefront: trang chủ có header, footer, không lỗi, không cuộn ngang trên điện thoại", async ({ page }) => {
-  const errors = trackErrors(page);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
-  await expect(page.getByRole("link", { name: "Trang chủ Ericssports" })).toBeVisible();
-  await expect(page.locator("footer")).toBeVisible();
-  await expect(page.locator("[data-site=shop]")).toBeVisible();
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  expect(overflow).toBeLessThanOrEqual(0);
-  expect(errors, `Lỗi trình duyệt:\n${errors.join("\n")}`).toEqual([]);
 });
 
 test("storefront luôn sáng dù nhân viên chọn giao diện tối trong quản trị", async ({ page }) => {
