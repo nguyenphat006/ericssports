@@ -51,6 +51,8 @@ interface BaseProps {
    * Chọn nhiều: mục đã chọn có dấu ✓ trong danh sách (không hiện chip). Esc không bị chặn để đóng popover cha.
    */
   inline?: boolean;
+  /** Class thêm cho danh sách thả xuống (render qua portal) — vd. "shop-theme" để nhận theme storefront */
+  contentClassName?: string;
 }
 
 interface SingleProps extends BaseProps {
@@ -101,7 +103,7 @@ export function OptionContent({ option }: { option: ComboOption }) {
 export function Combobox(props: ComboboxProps) {
   const t = useTranslations("form");
   const tc = useTranslations("common");
-  const { options, placeholder = t("selectPlaceholder"), emptyText = tc("status.noData"), disabled, className, onSearch, loading, onReachEnd, hasMore, renderOption, id, inline } = props;
+  const { options, placeholder = t("selectPlaceholder"), emptyText = tc("status.noData"), disabled, className, onSearch, loading, onReachEnd, hasMore, renderOption, id, inline, contentClassName } = props;
   const [popupOpen, setOpen] = useState(false);
   const open = inline || popupOpen;
   const [query, setQuery] = useState("");
@@ -333,7 +335,7 @@ export function Combobox(props: ComboboxProps) {
       </PopoverAnchor>
       <PopoverContent
         align="start"
-        className="w-(--radix-popover-trigger-width) min-w-56 p-1"
+        className={cn("w-(--radix-popover-trigger-width) min-w-56 p-1", contentClassName)}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => {
