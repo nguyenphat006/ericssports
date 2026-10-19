@@ -61,12 +61,6 @@
     "reviews": "{count} đánh giá",
     "sold": "Đã bán {count}"
   },
-  "home": {
-    "heroEyebrow": "Tập tại nhà",
-    "heroTitle": "Phòng gym trong nhà bạn",
-    "heroText": "Máy chạy, xe đạp, tạ và ghế tập chính hãng. Giao và lắp đặt miễn phí nội thành.",
-    "featured": "Sản phẩm nổi bật"
-  },
   "notFound": {
     "title": "Không tìm thấy trang",
     "text": "Trang bạn tìm có thể đã đổi địa chỉ hoặc không còn tồn tại.",

@@ -569,6 +569,3 @@ export function toSummary(p: Product): ProductSummary {
     inStock: sellable.length > 0,
   };
 }
-
-/** Dạng thẻ — dùng cho trang chủ tạm GĐ1 (GĐ2 M2 thay bằng khối CMS) */
-export const MOCK_PRODUCTS: ProductSummary[] = MOCK_PRODUCT_LIST.slice(0, 8).map(toSummary);

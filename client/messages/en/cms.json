@@ -1,0 +1,25 @@
+{
+  "blocks": {
+    "hero": "Hero (cover image)",
+    "richText": "Rich text",
+    "imageText": "Image + text",
+    "uspStrip": "Benefits strip",
+    "linkCardGrid": "Link card grid",
+    "ctaBanner": "Call-to-action banner",
+    "bannerPair": "Banner pair",
+    "logoStrip": "Partner logos",
+    "testimonials": "Customer testimonials",
+    "faq": "FAQ",
+    "videoEmbed": "Video embed",
+    "productGrid": "Product grid",
+    "categoryIcons": "Category icons"
+  },
+  "ui": {
+    "viewAll": "View all",
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {index}",
+    "slideOf": "{current} of {total}",
+    "playVideo": "Play video: {title}"
+  }
+}

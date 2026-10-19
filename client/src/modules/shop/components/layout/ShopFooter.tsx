@@ -1,18 +1,31 @@
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { STORE_INFO } from "../../config/store";
 import { Container } from "../ui";
 import { Wordmark } from "./Wordmark";
 
 /**
- * Footer storefront (nền đen). Các trang chính sách / hỗ trợ chưa có (GĐ3 tạo bằng CMS) nên mục chỉ là chữ,
- * không phải link. Phương thức thanh toán ghi bằng chữ (chưa dùng logo thương hiệu VNPay / MoMo).
+ * Footer storefront (nền đen). Mục có `href` là link (trang chính sách CMS, tra cứu đơn); mục chưa có trang
+ * chỉ là chữ. Phương thức thanh toán ghi bằng chữ (chưa dùng logo thương hiệu VNPay / MoMo).
+ * GĐ3: cấu hình footer bằng khối trong CMS.
  */
 export async function ShopFooter() {
   const t = await getTranslations("shop.footer");
 
-  const columns = [
-    { title: t("policies"), items: [t("policyWarranty"), t("policyReturn"), t("policyShipping"), t("policyPrivacy")] },
-    { title: t("support"), items: [t("supportGuide"), t("supportPayment"), t("supportTrack"), t("supportFaq")] },
+  const columns: { title: string; items: { label: string; href?: string }[] }[] = [
+    {
+      title: t("policies"),
+      items: [
+        { label: t("policyWarranty"), href: "/chinh-sach-bao-hanh" },
+        { label: t("policyReturn"), href: "/chinh-sach-doi-tra" },
+        { label: t("policyShipping"), href: "/giao-hang-lap-dat" },
+        { label: t("policyPrivacy"), href: "/bao-mat-thong-tin" },
+      ],
+    },
+    {
+      title: t("support"),
+      items: [{ label: t("supportTrack"), href: "/tra-cuu-don" }, { label: t("supportGuide") }, { label: t("supportPayment") }, { label: t("supportFaq") }],
+    },
   ];
   const payments = [t("paymentCod"), "VNPay", "MoMo", t("paymentBank")];
 
@@ -51,7 +64,15 @@ export async function ShopFooter() {
             <h2 className="shop-display-soft text-base">{col.title}</h2>
             <ul className="mt-3 space-y-2 text-sm text-[var(--shop-on-ink-secondary)]">
               {col.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.label}>
+                  {item.href ? (
+                    <Link href={item.href} className="transition-colors hover:text-white hover:underline">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    item.label
+                  )}
+                </li>
               ))}
             </ul>
           </div>

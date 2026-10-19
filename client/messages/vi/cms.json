@@ -1,0 +1,25 @@
+{
+  "blocks": {
+    "hero": "Hero (ảnh bìa)",
+    "richText": "Văn bản tự do",
+    "imageText": "Ảnh + chữ",
+    "uspStrip": "Dải cam kết",
+    "linkCardGrid": "Lưới thẻ liên kết",
+    "ctaBanner": "Banner kêu gọi hành động",
+    "bannerPair": "Banner đôi",
+    "logoStrip": "Logo đối tác",
+    "testimonials": "Đánh giá khách hàng",
+    "faq": "Câu hỏi thường gặp",
+    "videoEmbed": "Nhúng video",
+    "productGrid": "Lưới sản phẩm",
+    "categoryIcons": "Danh mục dạng icon"
+  },
+  "ui": {
+    "viewAll": "Xem tất cả",
+    "prevSlide": "Slide trước",
+    "nextSlide": "Slide sau",
+    "goToSlide": "Đến slide {index}",
+    "slideOf": "{current} trên {total}",
+    "playVideo": "Phát video: {title}"
+  }
+}

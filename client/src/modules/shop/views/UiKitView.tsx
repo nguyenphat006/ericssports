@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { Chip, Container, Price, ProductCard, Rating, SectionHeading, ShopBadge, ShopButton } from "../components/ui";
 import { archivo } from "../fonts";
-import { MOCK_PRODUCTS } from "../mocks/products";
+import { MOCK_PRODUCT_LIST, toSummary } from "../mocks/products";
 
 /** Bảng màu + tỉ lệ tương phản đã đo (kế hoạch GĐ1, Q2). Dữ liệu kỹ thuật — không cần dịch. */
 const SWATCHES = [
@@ -156,7 +156,7 @@ export function UiKitView() {
 
       <Block title={t("productCards")}>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {MOCK_PRODUCTS.slice(0, 4).map((p) => (
+          {MOCK_PRODUCT_LIST.slice(0, 4).map(toSummary).map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>

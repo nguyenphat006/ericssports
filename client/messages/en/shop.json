@@ -61,12 +61,6 @@
     "reviews": "{count} reviews",
     "sold": "{count} sold"
   },
-  "home": {
-    "heroEyebrow": "Train at home",
-    "heroTitle": "A gym in your home",
-    "heroText": "Genuine treadmills, bikes, weights and benches. Free delivery and installation in the city.",
-    "featured": "Featured products"
-  },
   "notFound": {
     "title": "Page not found",
     "text": "The page you are looking for may have moved or no longer exists.",
