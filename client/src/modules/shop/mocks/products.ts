@@ -553,6 +553,7 @@ export function toSummary(p: Product): ProductSummary {
   const pool = sellable.length ? sellable : p.variants;
   const cheapest = pool.reduce((min, v) => (v.price < min.price ? v : min), pool[0]);
   const image = p.media.find((m) => m.kind === "image");
+  const colorAxis = p.variantAxes.find((a) => a.id === "color");
   return {
     id: p.id,
     slug: p.slug,
@@ -567,5 +568,7 @@ export function toSummary(p: Product): ProductSummary {
     reviewCount: p.reviewCount,
     soldCount: p.soldCount,
     inStock: sellable.length > 0,
+    swatches: colorAxis?.values.flatMap((v) => (v.swatch ? [{ label: v.label, color: v.swatch }] : [])) ?? [],
+    quickAddVariantId: p.variants.length === 1 && sellable.length === 1 ? sellable[0].id : null,
   };
 }

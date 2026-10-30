@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "@/modules/shop/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatPrice } from "../../lib/formatPrice";
 import { useCustomer } from "../../hooks/useCustomer";

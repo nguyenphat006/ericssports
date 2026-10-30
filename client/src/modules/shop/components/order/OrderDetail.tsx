@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { CheckCircle2, Clock, Landmark, XCircle } from "lucide-react";
+import { CheckCircle, Clock, Landmark, XCircle } from "@/modules/shop/components/icons";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "../../lib/formatPrice";
 import { orderService } from "../../services";
@@ -37,7 +37,7 @@ export function OrderDetail({ order }: { order: Order }) {
           ? { tone: "success", title: t("paidTitle"), text: t("paidText") }
           : { tone: "success", title: t("successTitle"), text: t("successText") };
 
-  const Icon = banner.tone === "success" ? CheckCircle2 : banner.tone === "error" ? XCircle : banner.tone === "pending" ? Clock : XCircle;
+  const Icon = banner.tone === "success" ? CheckCircle : banner.tone === "error" ? XCircle : banner.tone === "pending" ? Clock : XCircle;
 
   const pay = async () => {
     setPaying(true);

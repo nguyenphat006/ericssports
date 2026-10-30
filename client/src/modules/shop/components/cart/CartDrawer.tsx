@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "@/modules/shop/components/icons";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { archivo } from "../../fonts";

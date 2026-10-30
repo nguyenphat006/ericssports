@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "@/modules/shop/components/icons";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/modules/cms/seo/JsonLd";
 import { cn } from "@/lib/utils";

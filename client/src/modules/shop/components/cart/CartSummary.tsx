@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Truck } from "lucide-react";
+import { Truck } from "@/modules/shop/components/icons";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "../../lib/formatPrice";
 import type { PricedCart } from "../../types";

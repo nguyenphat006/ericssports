@@ -7,3 +7,4 @@ export { Rating } from "./Rating";
 export { SectionHeading } from "./SectionHeading";
 export { ProductCard } from "./ProductCard";
 export { QuantityStepper } from "./QuantityStepper";
+export { CarouselArrows } from "./CarouselArrows";

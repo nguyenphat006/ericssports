@@ -7,6 +7,8 @@ import type { CmsPage } from "../types";
  */
 
 const IMG = "/shop/placeholder";
+/** Ảnh chụp minh họa (Unsplash — nguồn trong public/shop/photos/CREDITS.md) */
+const PHOTO = "/shop/photos";
 const PUBLISHED = "2026-10-19T08:00:00+07:00";
 
 const p = (text: string): RichTextBlock => ({ type: "paragraph", content: [{ type: "text", text }] });
@@ -49,7 +51,7 @@ export const MOCK_PAGES: CmsPage[] = [
               eyebrow: "Tập tại nhà",
               title: "Phòng gym trong nhà bạn",
               text: "Máy chạy, xe đạp, tạ và ghế tập chính hãng. Giao và lắp đặt miễn phí nội thành.",
-              image: { src: `${IMG}/treadmill.svg`, alt: "Máy chạy bộ" },
+              image: { src: `${PHOTO}/hero-home-gym.webp`, alt: "Góc tập tại nhà với ghế tập và tạ cạnh cửa sổ lớn", fit: "cover" },
               cta: { label: "Khám phá cardio", href: "/danh-muc/cardio" },
               secondaryCta: { label: "Tạ & ghế tập", href: "/danh-muc/tap-ta" },
             },
@@ -62,10 +64,10 @@ export const MOCK_PAGES: CmsPage[] = [
         version: 1,
         props: {
           items: [
-            { icon: "truck", title: "Giao toàn quốc", text: "Miễn phí nội thành từ 5 triệu" },
-            { icon: "wrench", title: "Lắp đặt tận nhà", text: "Kỹ thuật viên hướng dẫn sử dụng" },
-            { icon: "shield", title: "Bảo hành đến 24 tháng", text: "Chính hãng, có phiếu bảo hành" },
-            { icon: "refresh", title: "Đổi trả 7 ngày", text: "Lỗi do nhà sản xuất" },
+            { icon: "truck", title: "Giao toàn quốc", text: "Miễn phí nội thành từ 5 triệu", href: "/giao-hang-lap-dat" },
+            { icon: "wrench", title: "Lắp đặt tận nhà", text: "Kỹ thuật viên hướng dẫn sử dụng", href: "/giao-hang-lap-dat" },
+            { icon: "shield", title: "Bảo hành đến 24 tháng", text: "Chính hãng, có phiếu bảo hành", href: "/chinh-sach-bao-hanh" },
+            { icon: "refresh", title: "Đổi trả 7 ngày", text: "Lỗi do nhà sản xuất", href: "/chinh-sach-doi-tra" },
           ],
         },
       },
@@ -77,33 +79,74 @@ export const MOCK_PAGES: CmsPage[] = [
           eyebrow: "Theo mục tiêu",
           title: "Bạn muốn tập gì?",
           items: [
-            { title: "Giảm cân", text: "Máy chạy, xe đạp, máy elip", href: "/danh-muc/cardio", tone: "primary", image: { src: `${IMG}/treadmill.svg`, alt: "" } },
-            { title: "Tăng cơ", text: "Tạ, ghế tập, giàn tạ", href: "/danh-muc/tap-ta", tone: "ink", image: { src: `${IMG}/dumbbell.svg`, alt: "" } },
-            { title: "Dẻo dai", text: "Thảm yoga, phục hồi cơ", href: "/danh-muc/yoga-phuc-hoi", tone: "soft", image: { src: `${IMG}/mat.svg`, alt: "" } },
+            { title: "Giảm cân", text: "Máy chạy, xe đạp, máy elip", href: "/danh-muc/cardio", image: { src: `${PHOTO}/card-weight-loss.webp`, alt: "", fit: "cover" } },
+            { title: "Tăng cơ", text: "Tạ, ghế tập, giàn tạ", href: "/danh-muc/tap-ta", image: { src: `${PHOTO}/card-muscle.webp`, alt: "", fit: "cover" } },
+            { title: "Dẻo dai", text: "Thảm yoga, phục hồi cơ", href: "/danh-muc/yoga-phuc-hoi", image: { src: `${PHOTO}/card-flexibility.webp`, alt: "", fit: "cover" } },
           ],
         },
       },
       {
         id: "home-products",
         type: "product-grid",
-        version: 1,
+        version: 2,
         props: {
           title: "Sản phẩm nổi bật",
+          layout: "carousel",
+          viewAllHref: "/tim-kiem",
           tabs: [
-            { label: "Bán chạy", selection: { source: "bestseller", limit: 8 } },
-            { label: "Mới về", selection: { source: "new", limit: 8 } },
-            { label: "Đang giảm giá", selection: { source: "sale", limit: 8 } },
+            { label: "Bán chạy", selection: { source: "bestseller", limit: 10 } },
+            { label: "Mới về", selection: { source: "new", limit: 10 } },
+            { label: "Đang giảm giá", selection: { source: "sale", limit: 10 } },
           ],
         },
       },
-      { id: "home-categories", type: "category-icons", version: 1, props: { title: "Danh mục" } },
+      { id: "home-categories", type: "category-icons", version: 1, props: { title: "Mua theo danh mục", shape: "circle" } },
       {
-        id: "home-brands",
-        type: "logo-strip",
+        id: "home-banners",
+        type: "banner-pair",
         version: 1,
         props: {
-          title: "Thương hiệu",
-          items: [{ name: "ES Cardio" }, { name: "ES Strength" }, { name: "ES Recovery" }, { name: "ES Pro" }, { name: "ES Home" }, { name: "ES Gear" }],
+          items: [
+            {
+              eyebrow: "Cardio",
+              title: "Máy chạy cho căn hộ",
+              text: "Gấp gọn, êm, cất sau khi tập",
+              href: "/danh-muc/cardio/may-chay-bo",
+              image: { src: `${PHOTO}/banner-cardio.webp`, alt: "", fit: "cover" },
+            },
+            {
+              eyebrow: "Tập tạ",
+              title: "Góc tạ tại nhà",
+              text: "Tạ đơn, ghế, giàn tạ",
+              href: "/danh-muc/tap-ta",
+              image: { src: `${PHOTO}/banner-strength.webp`, alt: "", fit: "cover" },
+            },
+          ],
+        },
+      },
+      {
+        id: "home-recovery",
+        type: "product-grid",
+        version: 2,
+        props: {
+          eyebrow: "Sau buổi tập",
+          title: "Yoga & phục hồi",
+          layout: "carousel",
+          viewAllHref: "/danh-muc/yoga-phuc-hoi",
+          tabs: [{ label: "Tất cả", selection: { source: "category", categoryId: "c-recovery", limit: 10 } }],
+        },
+      },
+      {
+        id: "home-story",
+        type: "image-text",
+        version: 1,
+        props: {
+          eyebrow: "Bắt đầu nhẹ nhàng",
+          title: "20 phút mỗi ngày, ngay tại phòng khách",
+          text: "Không cần phòng gym lớn. Một tấm thảm, đôi tạ đơn và bộ dây kháng lực đủ cho bài toàn thân cơ bản.\nChọn dần thiết bị khi bạn tập đều hơn.",
+          image: { src: `${PHOTO}/story-pushup.webp`, alt: "Người đàn ông hít đất trên thảm trong phòng khách", fit: "cover" },
+          imagePosition: "left",
+          cta: { label: "Xem phụ kiện", href: "/danh-muc/phu-kien" },
         },
       },
       {
@@ -118,6 +161,15 @@ export const MOCK_PAGES: CmsPage[] = [
             { quote: "Tạ và ghế chắc chắn, đóng gói kỹ. Phòng tập nhỏ ở nhà giờ đủ bài cơ bản.", author: "Chị Lan", meta: "Cầu Giấy, Hà Nội", rating: 5 },
             { quote: "Tư vấn đúng nhu cầu, không ép mua máy đắt. Sẽ quay lại mua thêm phụ kiện.", author: "Anh Khoa", meta: "Biên Hòa, Đồng Nai", rating: 4 },
           ],
+        },
+      },
+      {
+        id: "home-brands",
+        type: "logo-strip",
+        version: 1,
+        props: {
+          title: "Thương hiệu",
+          items: [{ name: "ES Cardio" }, { name: "ES Strength" }, { name: "ES Recovery" }, { name: "ES Pro" }, { name: "ES Home" }, { name: "ES Gear" }],
         },
       },
     ],

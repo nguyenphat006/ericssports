@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "@/modules/shop/components/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { discountPercent, formatPrice } from "../../lib/formatPrice";

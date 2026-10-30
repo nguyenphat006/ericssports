@@ -5,6 +5,8 @@ export const categoryIconsSchema = z.object({
   title: z.string().trim().optional(),
   /** Danh mục hiển thị theo thứ tự; bỏ trống = các danh mục gốc */
   categoryIds: z.array(z.string()).max(12).default([]),
+  /** square: ô vuông ảnh tách nền · circle: ảnh chụp cắt tròn */
+  shape: z.enum(["square", "circle"]).default("square"),
 });
 
 export type CategoryIconsProps = z.output<typeof categoryIconsSchema>;

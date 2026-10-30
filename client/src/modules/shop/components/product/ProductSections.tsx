@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { FileText, Star } from "lucide-react";
+import { FileText, Star } from "@/modules/shop/components/icons";
 import { RichText } from "@/modules/cms/richtext/RichText";
 import type { Product, ReviewSummary } from "../../types";
 
@@ -15,7 +15,7 @@ function Stars({ value, className }: { value: number; className?: string }) {
   return (
     <span className={className} aria-hidden>
       {Array.from({ length: 5 }, (_, i) => (
-        <Star key={i} className={i < Math.round(value) ? "inline size-4 fill-[#E9A23B] text-[#E9A23B]" : "inline size-4 text-[var(--c-border-strong)]"} />
+        <Star key={i} weight={i < Math.round(value) ? "fill" : "regular"} className={i < Math.round(value) ? "inline size-4 text-[#E9A23B]" : "inline size-4 text-[var(--c-border-strong)]"} />
       ))}
     </span>
   );

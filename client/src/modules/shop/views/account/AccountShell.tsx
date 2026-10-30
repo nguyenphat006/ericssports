@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { LogOut, MapPin, Package } from "lucide-react";
+import { LogOut, MapPin, Package } from "@/modules/shop/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useCustomer } from "../../hooks/useCustomer";

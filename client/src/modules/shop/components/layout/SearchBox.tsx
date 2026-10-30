@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import { FolderOpen, Loader2, Search } from "lucide-react";
+import { FolderOpen, Spinner, Search } from "@/modules/shop/components/icons";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "../../lib/formatPrice";
@@ -143,7 +143,7 @@ export function SearchBox({ autoFocus = false, onNavigate, className }: { autoFo
         onKeyDown={onKeyDown}
         className="h-11 w-full rounded-[4px] border border-transparent bg-[var(--shop-muted)] pr-9 pl-9 text-sm text-[var(--shop-ink)] outline-none placeholder:text-[var(--c-text-tertiary)] focus:border-[var(--c-border-strong)] focus:bg-white [&::-webkit-search-cancel-button]:hidden"
       />
-      {isFetching && <Loader2 className="absolute top-1/2 right-3 size-4 -translate-y-1/2 animate-spin text-[var(--c-text-tertiary)]" aria-hidden />}
+      {isFetching && <Spinner className="absolute top-1/2 right-3 size-4 -translate-y-1/2 animate-spin text-[var(--c-text-tertiary)]" aria-hidden />}
 
       {showList && (
         <div className="absolute top-full right-0 left-0 z-50 mt-1 overflow-hidden rounded-[6px] border border-[var(--c-border)] bg-white py-1 shadow-lg">

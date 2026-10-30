@@ -9,7 +9,7 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, Banknote, ChevronDown, CreditCard, Landmark, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
+import { ArrowLeft, Banknote, ChevronDown, CreditCard, Landmark, ShieldCheck, Wallet, type ShopIcon } from "@/modules/shop/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { CHECKOUT_DEFAULTS, checkoutSchema, type CheckoutFormValues } from "../lib/checkoutSchema";
@@ -26,7 +26,7 @@ import { CartTotals } from "../components/cart/CartSummary";
 import { AddressFields } from "../components/form/AddressFields";
 import { FormCard, SHOP_INPUT, ShopField } from "../components/form/ShopField";
 
-const PAYMENTS: { id: PaymentMethod; icon: LucideIcon }[] = [
+const PAYMENTS: { id: PaymentMethod; icon: ShopIcon }[] = [
   { id: "cod", icon: Banknote },
   { id: "bank_transfer", icon: Landmark },
   { id: "vnpay", icon: CreditCard },
@@ -57,7 +57,7 @@ function OptionCard({
   title: string;
   hint?: string;
   aside?: React.ReactNode;
-  icon?: LucideIcon;
+  icon?: ShopIcon;
 }) {
   return (
     <label

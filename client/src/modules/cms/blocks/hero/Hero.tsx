@@ -16,7 +16,14 @@ function SplitHero({ slide }: { slide: HeroSlide }) {
           <Ctas slide={slide} />
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[var(--shop-muted)]">
-          <Image src={slide.image.src} alt={slide.image.alt} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-contain p-10" />
+          <Image
+            src={slide.image.src}
+            alt={slide.image.alt}
+            fill
+            priority
+            sizes="(min-width: 1280px) 600px, (min-width: 768px) 48vw, 100vw"
+            className={slide.image.fit === "cover" ? "object-cover" : "object-contain p-10"}
+          />
         </div>
       </Container>
     </section>

@@ -70,6 +70,10 @@ export interface ProductSummary {
   reviewCount?: number;
   soldCount?: number;
   inStock?: boolean;
+  /** Màu các biến thể (chấm màu trên thẻ) — suy ra từ trục "color" của biến thể */
+  swatches?: { label: string; color: string }[];
+  /** Có đúng 1 biến thể còn hàng -> thẻ thêm thẳng vào giỏ; null = phải chọn phân loại ở trang sản phẩm */
+  quickAddVariantId?: string | null;
 }
 
 export type ProductMedia = ({ kind: "image" } & MediaImage) | { kind: "video"; youtubeId: string; title: string; poster: MediaImage };

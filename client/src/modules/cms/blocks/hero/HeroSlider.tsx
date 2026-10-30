@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import { CarouselArrows } from "@/modules/shop/components/ui";
 import { FullImageSlide } from "./FullImageSlide";
 import type { HeroSlide } from "./schema";
 
@@ -53,8 +54,7 @@ export function HeroSlider({ slides, autoplaySeconds }: { slides: HeroSlide[]; a
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious aria-label={t("prevSlide")} className="left-4 hidden border-white/40 bg-black/30 text-white hover:bg-black/50 md:inline-flex" />
-        <CarouselNext aria-label={t("nextSlide")} className="right-4 hidden border-white/40 bg-black/30 text-white hover:bg-black/50 md:inline-flex" />
+        <CarouselArrows prevLabel={t("prevSlide")} nextLabel={t("nextSlide")} className="bg-black/30 text-white shadow-none hover:bg-black/50 lg:left-4 lg:right-4" />
       </Carousel>
       <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
         {slides.map((_, i) => (

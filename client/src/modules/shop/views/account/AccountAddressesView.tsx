@@ -6,7 +6,7 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { MapPin, Pencil, Plus, Trash2 } from "lucide-react";
+import { MapPin, Pencil, Plus, Trash } from "@/modules/shop/components/icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -166,7 +166,7 @@ export function AccountAddressesView() {
                   </ShopButton>
                 )}
                 <ShopButton size="sm" variant="ghost" className="ml-auto text-[var(--c-error)]" onClick={() => setDeleting(a)}>
-                  <Trash2 />
+                  <Trash />
                   {t("deleteAddress")}
                 </ShopButton>
               </div>

@@ -19,5 +19,7 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     css: false,
     restoreMocks: true,
+    // Node >= 25 có sẵn `localStorage` toàn cục (rỗng khi không có --localstorage-file) che mất localStorage của jsdom
+    execArgv: ["--no-experimental-webstorage"],
   },
 });

@@ -1,9 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { ProductCard } from "@/modules/shop/components/ui";
+import { CarouselArrows, ProductCard } from "@/modules/shop/components/ui";
 import type { ProductSummary } from "@/modules/shop/types";
+import type { ProductGridProps } from "./schema";
+
+type Layout = ProductGridProps["layout"];
+
+/** Một hàng vuốt ngang: điện thoại thấy ~2,2 thẻ (gợi ý còn nữa), máy tính 4–5 thẻ + nút trước / sau */
+function Row({ products }: { products: ProductSummary[] }) {
+  const t = useTranslations("cms.ui");
+  return (
+    <Carousel opts={{ align: "start", slidesToScroll: "auto", containScroll: "trimSnaps" }} aria-label={t("productRow")}>
+      <CarouselContent className="-ml-3 lg:-ml-4">
+        {products.map((p) => (
+          <CarouselItem key={p.id} className="basis-[45%] pl-3 sm:basis-[32%] lg:basis-1/4 lg:pl-4 xl:basis-1/5">
+            <ProductCard product={p} href={`/san-pham/${p.slug}`} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselArrows prevLabel={t("prevProducts")} nextLabel={t("nextProducts")} className="top-[38%]" />
+    </Carousel>
+  );
+}
+
+function Products({ products, layout }: { products: ProductSummary[]; layout: Layout }) {
+  return layout === "carousel" ? <Row products={products} /> : <Grid products={products} />;
+}
 
 function Grid({ products }: { products: ProductSummary[] }) {
   return (
@@ -16,9 +42,9 @@ function Grid({ products }: { products: ProductSummary[] }) {
 }
 
 /** Thanh tab (role tablist, ← → để chuyển) — dữ liệu mọi tab đã có sẵn từ server, chuyển tab không gọi API */
-export function ProductGridTabs({ tabs }: { tabs: { label: string; products: ProductSummary[] }[] }) {
+export function ProductGridTabs({ tabs, layout }: { tabs: { label: string; products: ProductSummary[] }[]; layout: Layout }) {
   const [active, setActive] = useState(0);
-  if (tabs.length === 1) return <Grid products={tabs[0].products} />;
+  if (tabs.length === 1) return <Products products={tabs[0].products} layout={layout} />;
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -51,7 +77,8 @@ export function ProductGridTabs({ tabs }: { tabs: { label: string; products: Pro
         ))}
       </div>
       <div role="tabpanel" id={`pg-panel-${active}`} aria-labelledby={`pg-tab-${active}`}>
-        <Grid products={tabs[active].products} />
+        {/* key: đổi tab thì dựng lại carousel từ đầu hàng */}
+        <Products key={active} products={tabs[active].products} layout={layout} />
       </div>
     </>
   );

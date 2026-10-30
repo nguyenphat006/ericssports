@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "@/modules/shop/components/icons";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Container } from "@/modules/shop/components/ui";
 import { JsonLd } from "../../seo/JsonLd";

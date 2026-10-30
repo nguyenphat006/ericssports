@@ -20,6 +20,9 @@
     "nextSlide": "Next slide",
     "goToSlide": "Go to slide {index}",
     "slideOf": "{current} of {total}",
-    "playVideo": "Play video: {title}"
+    "playVideo": "Play video: {title}",
+    "productRow": "Product list",
+    "prevProducts": "Previous products",
+    "nextProducts": "Next products"
   }
 }

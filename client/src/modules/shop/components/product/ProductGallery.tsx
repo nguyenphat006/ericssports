@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Maximize2, Play } from "lucide-react";
+import { Maximize, Play } from "@/modules/shop/components/icons";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
@@ -50,7 +50,7 @@ export function ProductGallery({ media, index, onIndexChange, badge }: ProductGa
                   {m.kind === "image" ? (
                     <button type="button" onClick={() => setZoomOpen(true)} className="group absolute inset-0 cursor-zoom-in" aria-label={t("zoom")}>
                       <Image src={m.src} alt={m.alt} fill priority={i === 0} sizes="(min-width: 1024px) 600px, 100vw" className="object-contain p-8 lg:p-12" />
-                      <Maximize2 className="absolute right-3 bottom-3 size-5 text-[var(--c-text-tertiary)] opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
+                      <Maximize className="absolute right-3 bottom-3 size-5 text-[var(--c-text-tertiary)] opacity-0 transition-opacity group-hover:opacity-100" aria-hidden />
                     </button>
                   ) : (
                     <div className="absolute inset-0 flex items-center p-4">
@@ -85,7 +85,7 @@ export function ProductGallery({ media, index, onIndexChange, badge }: ProductGa
                 )}
               >
                 <Image src={m.kind === "image" ? m.src : m.poster.src} alt="" fill sizes="110px" className="object-contain p-2" />
-                {m.kind === "video" && <Play className="absolute inset-0 m-auto size-6 fill-white text-white drop-shadow" aria-hidden />}
+                {m.kind === "video" && <Play className="absolute inset-0 m-auto size-6 text-white drop-shadow" aria-hidden />}
               </button>
             </li>
           ))}

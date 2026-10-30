@@ -60,6 +60,16 @@ const c = (
   description?: string,
 ): Category => ({ id, slug, name, parentId, sortOrder, filterAttributeIds, description });
 
+/** Ảnh minh họa danh mục gốc (Unsplash, xem public/shop/photos/CREDITS.md) */
+const CATEGORY_PHOTOS: Record<string, string> = {
+  cardio: "/shop/photos/man-treadmill.webp",
+  "tap-ta": "/shop/photos/banner-strength.webp",
+  "yoga-phuc-hoi": "/shop/photos/cat-yoga.webp",
+  "phu-kien": "/shop/photos/banner-accessories.webp",
+};
+
+const withPhoto = (cat: Category): Category => (CATEGORY_PHOTOS[cat.slug] ? { ...cat, image: { src: CATEGORY_PHOTOS[cat.slug], alt: cat.name } } : cat);
+
 export const MOCK_CATEGORIES: Category[] = [
   c("c-cardio", "cardio", "Cardio", null, 1, ["a-load", "a-foldable", "a-bluetooth"], "Máy chạy bộ, xe đạp tập và máy elip cho tập luyện tim mạch tại nhà."),
   c("c-treadmills", "may-chay-bo", "Máy chạy bộ", "c-cardio", 1, ["a-power", "a-load", "a-foldable", "a-incline", "a-bluetooth"], "Máy chạy bộ điện gấp gọn đến máy chuyên nghiệp nâng dốc điện."),
@@ -74,4 +84,4 @@ export const MOCK_CATEGORIES: Category[] = [
   c("c-mats", "tham-tap", "Thảm tập", "c-recovery", 1, ["a-thickness", "a-material"]),
   c("c-massage", "massage", "Súng & con lăn massage", "c-recovery", 2, ["a-bluetooth"]),
   c("c-accessories", "phu-kien", "Phụ kiện", null, 4, [], "Dây kháng lực, găng tay, đai lưng và phụ kiện tập luyện."),
-];
+].map(withPhoto);

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { Play } from "@/modules/shop/components/icons";
 import { useTranslations } from "next-intl";
 
 /**
@@ -27,7 +27,7 @@ export function VideoPlayer({ youtubeId, title, poster }: { youtubeId: string; t
         <button type="button" onClick={() => setPlaying(true)} className="group absolute inset-0 flex items-center justify-center" aria-label={t("playVideo", { title })}>
           {poster && <Image src={poster.src} alt={poster.alt} fill sizes="(min-width: 960px) 960px, 100vw" className="object-cover opacity-70" />}
           <span className="relative flex size-16 items-center justify-center rounded-full bg-[var(--shop-primary)] text-white transition-transform group-hover:scale-110">
-            <Play className="ml-1 size-7 fill-current" aria-hidden />
+            <Play className="ml-1 size-7" aria-hidden />
           </span>
         </button>
       )}

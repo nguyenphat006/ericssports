@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
+import { Trash } from "@/modules/shop/components/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "../../lib/formatPrice";
@@ -70,7 +70,7 @@ export function CartLineItem({ line, editableServices = false, compact = false, 
             aria-label={t("remove", { name: line.name })}
             className="-mt-1 -mr-1 flex size-8 shrink-0 items-center justify-center rounded-[4px] text-[var(--c-text-tertiary)] hover:bg-[var(--shop-muted)] hover:text-[var(--c-error)]"
           >
-            <Trash2 className="size-4" aria-hidden />
+            <Trash className="size-4" aria-hidden />
           </button>
         </div>
 

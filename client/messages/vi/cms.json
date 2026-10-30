@@ -20,6 +20,9 @@
     "nextSlide": "Slide sau",
     "goToSlide": "Đến slide {index}",
     "slideOf": "{current} trên {total}",
-    "playVideo": "Phát video: {title}"
+    "playVideo": "Phát video: {title}",
+    "productRow": "Danh sách sản phẩm",
+    "prevProducts": "Sản phẩm trước",
+    "nextProducts": "Sản phẩm tiếp theo"
   }
 }

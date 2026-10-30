@@ -49,6 +49,13 @@ describe("resolveBlocks", () => {
     const { blocks } = resolveBlocks([block({ type: "demo", version: 1, props: { title: "Cũ" } })], new Map([["demo", def]]));
     expect(blocks[0].props).toEqual({ heading: "Cũ" });
   });
+
+  it("product-grid v1 (chưa có layout) đọc thành dạng lưới", () => {
+    const props = { title: "Bán chạy", tabs: [{ label: "Tất cả", selection: { source: "bestseller", limit: 8 } }] };
+    const { blocks, issues } = resolveBlocks([block({ type: "product-grid", version: 1, props })], BLOCK_SCHEMA_BY_TYPE);
+    expect(issues).toEqual([]);
+    expect(blocks[0].props).toMatchObject({ layout: "grid", title: "Bán chạy" });
+  });
 });
 
 describe("dữ liệu mẫu", () => {

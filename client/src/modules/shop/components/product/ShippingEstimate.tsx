@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CreditCard, RotateCcw, ShieldCheck, Truck } from "lucide-react";
+import { CreditCard, RotateCcw, ShieldCheck, Truck } from "@/modules/shop/components/icons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useMounted } from "@/hooks/useMounted";
 import { cn } from "@/lib/utils";

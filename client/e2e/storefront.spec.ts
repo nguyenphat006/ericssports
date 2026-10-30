@@ -40,10 +40,17 @@ test("trang chủ dựng từ khối CMS, không lỗi, không cuộn ngang", as
   await page.goto("/");
   await expect(page.getByRole("link", { name: "Trang chủ Ericssports" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Bạn muốn tập gì?" })).toBeVisible();
-  await expect(page.locator("[data-block=product-grid]")).toBeVisible();
+  await expect(page.locator("#home-products[data-block=product-grid]")).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
   expect(errors, errors.join("\n")).toEqual([]);
+});
+
+test("thẻ sản phẩm 1 biến thể: thêm nhanh vào giỏ ngay trên trang chủ", async ({ page }) => {
+  await page.goto("/");
+  const row = page.locator("#home-products");
+  await row.getByRole("button", { name: /^Thêm .+ vào giỏ$/ }).first().click();
+  await expect(page.getByRole("dialog").getByText("Giỏ hàng (1)")).toBeVisible();
 });
 
 test("đường dẫn không tồn tại trả 404 giao diện storefront", async ({ page }) => {

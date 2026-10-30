@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star } from "@/modules/shop/components/icons";
 import { getTranslations } from "next-intl/server";
 import { Container, SectionHeading } from "@/modules/shop/components/ui";
 import type { BlockComponent } from "../types";
@@ -17,7 +17,7 @@ export const Testimonials: BlockComponent<TestimonialsProps> = async ({ props })
                 {item.rating && (
                   <div className="mb-3 flex gap-0.5" role="img" aria-label={t("rating", { rating: item.rating })}>
                     {Array.from({ length: 5 }, (_, s) => (
-                      <Star key={s} className={s < item.rating! ? "size-4 fill-[#E9A23B] text-[#E9A23B]" : "size-4 text-[var(--c-border-strong)]"} aria-hidden />
+                      <Star key={s} weight={s < item.rating! ? "fill" : "regular"} className={s < item.rating! ? "size-4 text-[#E9A23B]" : "size-4 text-[var(--c-border-strong)]"} />
                     ))}
                   </div>
                 )}

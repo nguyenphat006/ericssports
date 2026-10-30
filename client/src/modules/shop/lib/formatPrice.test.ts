@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { discountPercent, formatPrice } from "./formatPrice";
+import { discountPercent, formatCount, formatPrice } from "./formatPrice";
 
 describe("formatPrice", () => {
   it.each([
@@ -29,5 +29,14 @@ describe("discountPercent", () => {
     expect(discountPercent(null, 500000)).toBeNull();
     expect(discountPercent(500000, 500000)).toBeNull();
     expect(discountPercent(400000, 500000)).toBeNull();
+  });
+});
+
+describe("formatCount", () => {
+  it("dưới 1000 giữ nguyên, từ 1000 rút gọn kiểu 9,8k (làm tròn xuống)", () => {
+    expect(formatCount(740)).toBe("740");
+    expect(formatCount(1000)).toBe("1k");
+    expect(formatCount(9870)).toBe("9,8k");
+    expect(formatCount(12000)).toBe("12k");
   });
 });

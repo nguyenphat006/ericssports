@@ -99,7 +99,12 @@
     "viewImage": "View image {index}",
     "zoom": "Zoom image",
     "imageOf": "Image {current} of {total}",
-    "playVideo": "Watch video"
+    "playVideo": "Watch video",
+    "bestseller": "Best seller",
+    "quickAdd": "Add {name} to cart",
+    "chooseOptions": "Choose options for {name}",
+    "colors": "Colours: {list}",
+    "moreColors": "+{count}"
   },
   "notFound": {
     "title": "Page not found",

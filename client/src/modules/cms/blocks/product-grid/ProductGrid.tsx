@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@/modules/shop/components/icons";
 import { getTranslations } from "next-intl/server";
 import { Container, SectionHeading } from "@/modules/shop/components/ui";
 import { catalogService } from "@/modules/shop/services";
@@ -7,7 +7,7 @@ import type { BlockComponent } from "../types";
 import { ProductGridTabs } from "./ProductGridTabs";
 import type { ProductGridProps } from "./schema";
 
-/** Lưới sản phẩm: lấy dữ liệu theo điều kiện lúc render (server), nhiều tab thì chuyển tab ở client. */
+/** Lưới / hàng carousel sản phẩm: lấy dữ liệu theo điều kiện lúc render (server), nhiều tab thì chuyển tab ở client. */
 export const ProductGrid: BlockComponent<ProductGridProps> = async ({ props }) => {
   const t = await getTranslations("cms.ui");
   const tabs = await Promise.all(
@@ -39,7 +39,7 @@ export const ProductGrid: BlockComponent<ProductGridProps> = async ({ props }) =
             )
           }
         />
-        <ProductGridTabs tabs={visible} />
+        <ProductGridTabs tabs={visible} layout={props.layout} />
       </Container>
     </section>
   );

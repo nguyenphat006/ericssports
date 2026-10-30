@@ -13,7 +13,7 @@ Stack: Tailwind CSS v4 + shadcn/ui (Radix) + react-hook-form + lucide-react + so
 - `@/components/controls` — `Combobox` (1/nhiều, gõ tìm ngay trên ô, ảnh / mã / badge, ảo hóa + cuộn vô hạn — xem mục "Ô chọn"), `TreeSelect` / `TreeChecklist`, `DateRangePicker` (ISO `[from, to]` + preset), `NumberInput` (theo `useNumberFormat`), `FileDropzone`, `ImageUpload` (ảnh NVL, logo… — xem trước + bỏ ảnh + kéo thả; `upload(file) => Promise<url>`, backend lưu bằng `apps/core/image_upload.save_uploaded_image`, chỉ ảnh raster trừ khi thật cần SVG).
 - `@/components/form` — `FormDialog`, `FormSection`, `FieldShell`, `TextField`, `TextareaField`, `NumberField`, `SwitchField`, `SelectField` (≤ 7 lựa chọn), `ComboboxField`, `TreeSelectField`, `EntityComboField`.
 - `@/components/feedback` — `useConfirm()` (trả `Promise<boolean>`; `onConfirm` giữ trạng thái "đang xử lý"), `Spinner`.
-- Biểu tượng: `lucide-react`. Gộp class: `cn` từ `@/lib/utils`.
+- Biểu tượng: `lucide-react` (trang quản trị); storefront / khối CMS dùng Phosphor qua `modules/shop/components/icons.tsx` (`docs/STOREFRONT.md` mục 4). Gộp class: `cn` từ `@/lib/utils`.
 
 ## 2. Form modal chuẩn (mẫu `modules/master-data/units/components/UnitFormModal.tsx`)
 ```tsx

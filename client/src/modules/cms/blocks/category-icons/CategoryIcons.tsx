@@ -29,6 +29,32 @@ export const CategoryIcons: BlockComponent<CategoryIconsProps> = async ({ props 
     : all.filter((c) => !c.parentId);
   if (list.length === 0) return null;
 
+  if (props.shape === "circle") {
+    return (
+      <section className="py-10 lg:py-14">
+        <Container>
+          {props.title && <SectionHeading title={props.title} />}
+          <ul className="flex flex-wrap justify-center gap-x-3 gap-y-5 lg:gap-x-8">
+            {list.map((c) => (
+              <li key={c.id} className="w-[calc(25%-9px)] sm:w-36 lg:w-44">
+                <Link href={c.path} className="group block text-center outline-none">
+                  <span className="relative block aspect-square overflow-hidden rounded-full bg-[var(--shop-muted)] ring-[var(--shop-primary)] ring-offset-2 ring-offset-[var(--shop-bg)] transition group-hover:ring-2 group-focus-visible:ring-[3px]">
+                    {c.image ? (
+                      <Image src={c.image.src} alt="" fill sizes="(min-width: 1024px) 176px, (min-width: 640px) 144px, 25vw" className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                    ) : (
+                      <Image src={`/shop/placeholder/${PLACEHOLDER_BY_SLUG[c.slug] ?? "dumbbell"}.svg`} alt="" fill sizes="176px" className="object-contain p-5" />
+                    )}
+                  </span>
+                  <span className="mt-2 block text-xs font-semibold text-[var(--shop-ink)] sm:text-sm">{c.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section className="py-10 lg:py-14">
       <Container>
@@ -43,7 +69,7 @@ export const CategoryIcons: BlockComponent<CategoryIconsProps> = async ({ props 
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 180px, 112px"
-                    className="object-contain p-5"
+                    className={c.image ? "object-cover" : "object-contain p-5"}
                   />
                 </span>
                 <span className="mt-2 block text-sm font-semibold text-[var(--shop-ink)]">{c.name}</span>

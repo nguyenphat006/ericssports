@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@/modules/shop/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +49,7 @@ export function ShopButton({ variant, size, loading = false, disabled, className
         children
       ) : (
         <>
-          {loading && <Loader2 className="animate-spin" aria-hidden />}
+          {loading && <Spinner className="animate-spin" aria-hidden />}
           {children}
         </>
       )}

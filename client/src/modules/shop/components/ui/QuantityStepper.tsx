@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "@/modules/shop/components/icons";
 import { cn } from "@/lib/utils";
 
 interface QuantityStepperProps {

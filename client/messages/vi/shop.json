@@ -99,7 +99,12 @@
     "viewImage": "Xem ảnh {index}",
     "zoom": "Phóng to ảnh",
     "imageOf": "Ảnh {current} / {total}",
-    "playVideo": "Xem video"
+    "playVideo": "Xem video",
+    "bestseller": "Bán chạy",
+    "quickAdd": "Thêm {name} vào giỏ",
+    "chooseOptions": "Chọn phân loại cho {name}",
+    "colors": "Màu: {list}",
+    "moreColors": "+{count}"
   },
   "notFound": {
     "title": "Không tìm thấy trang",

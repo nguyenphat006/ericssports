@@ -16,3 +16,10 @@ export function discountPercent(compareAt: number | null | undefined, price: num
   const pct = Math.round(((compareAt - price) / compareAt) * 100);
   return pct > 0 ? pct : null;
 }
+
+/** Số lượng gọn cho thẻ sản phẩm (đã bán, lượt đánh giá): 740 -> "740", 9800 -> "9,8k", 12000 -> "12k" */
+export function formatCount(value: number): string {
+  if (value < 1000) return String(value);
+  const k = Math.floor(value / 100) / 10; // làm tròn xuống: không "thổi phồng" số đã bán
+  return `${String(k).replace(".", ",")}k`;
+}

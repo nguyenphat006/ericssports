@@ -15,7 +15,7 @@ Stack: Tailwind v4 + shadcn/ui (Radix) + react-hook-form + lucide-react + sonner
 | `@/components/form` | `FormDialog`, `FormSection`, `FieldShell`, `TextField`, `TextareaField`, `NumberField`, `SwitchField`, `SelectField` (≤ 7 lựa chọn), `ComboboxField`, `TreeSelectField`, `EntityComboField` | Bọc control bằng `useController` |
 | `@/components/feedback` | `useConfirm()` (Promise<boolean>, `onConfirm` giữ trạng thái đang xử lý), `Spinner` | |
 
-- Biểu tượng: `lucide-react`; trong Button để icon tự co (`<Pencil />`), ngoài Button đặt `className="size-4"`.
+- Biểu tượng: `lucide-react` (trang quản trị); trong Button để icon tự co (`<Pencil />`), ngoài Button đặt `className="size-4"`. Storefront / khối CMS dùng Phosphor qua `modules/shop/components/icons.tsx` (xem `docs/STOREFRONT.md` mục 4).
 - Gộp class: `cn` từ `@/lib/utils` (xem bẫy ở `frontend-architecture.md`).
 
 ## Form modal chuẩn (mẫu `units/components/UnitFormModal.tsx`)

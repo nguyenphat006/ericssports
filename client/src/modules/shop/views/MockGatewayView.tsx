@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { FlaskConical } from "lucide-react";
+import { Flask } from "@/modules/shop/components/icons";
 import { formatPrice } from "../lib/formatPrice";
 import { orderService, type MockPaymentResult } from "../services";
 import { Container, ShopButton } from "../components/ui";
@@ -35,7 +35,7 @@ export function MockGatewayView({ code, gateway }: { code: string; gateway: stri
     <Container className="max-w-xl py-10">
       <div className="rounded-[6px] border-2 border-dashed border-[var(--c-border-strong)] bg-white p-6">
         <p className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[var(--c-text-tertiary)] uppercase">
-          <FlaskConical className="size-4" aria-hidden />
+          <Flask className="size-4" aria-hidden />
           {t("title")}
         </p>
         <p className="mt-2 text-sm text-[var(--c-text-secondary)]">{t("intro")}</p>

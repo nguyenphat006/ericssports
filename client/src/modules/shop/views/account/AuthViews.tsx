@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "@/modules/shop/components/icons";
 import { isVietnamesePhone } from "../../lib/validation";
 import { customerService, ShopServiceError } from "../../services";
 import { useCustomerAuth } from "../../stores/useCustomerAuth";

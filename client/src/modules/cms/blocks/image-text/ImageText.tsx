@@ -9,7 +9,7 @@ export const ImageText: BlockComponent<ImageTextProps> = ({ props }) => (
   <section className="py-10 lg:py-16">
     <Container className="grid items-center gap-8 md:grid-cols-2 lg:gap-12">
       <div className={cn("relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[var(--shop-muted)]", props.imagePosition === "right" && "md:order-2")}>
-        <Image src={props.image.src} alt={props.image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain p-8" />
+        <Image src={props.image.src} alt={props.image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className={props.image.fit === "cover" ? "object-cover" : "object-contain p-8"} />
       </div>
       <div>
         {props.eyebrow && <p className="shop-eyebrow text-[var(--shop-primary)]">{props.eyebrow}</p>}
